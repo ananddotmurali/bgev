@@ -1,0 +1,12 @@
+.dialog-box{
+    width:235px;
+    height:175px;
+    line-height: 2%;
+    text-align: center;
+}
+
+.no-thanks-button, .request-button{
+    width: 100px;
+    margin: auto;
+    margin-bottom: 10px;
+}

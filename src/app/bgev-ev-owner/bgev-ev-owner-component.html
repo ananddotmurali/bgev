@@ -1,0 +1,33 @@
+<div class="container">
+    <div *ngIf="!loadComplete" class="spinnerContainer">
+        <img src="assets/imgs/charge2.gif" alt="">
+        <!-- <mat-spinner></mat-spinner> -->
+    </div>
+    <div *ngIf="loadComplete">
+        <h4>Please Enter Your Details</h4>
+        <mat-divider></mat-divider>
+        <div class="example-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name">
+                <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Mobile No</mat-label>
+                <input matInput placeholder="Mobile No">
+                <mat-icon matSuffix>smartphone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email">
+                <mat-icon matSuffix>contact_mail</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="login-actions">
+            <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
+            <a mat-raised-button color="primary" routerLink="/home">Back</a>
+        </div>
+    </div>
+</div>

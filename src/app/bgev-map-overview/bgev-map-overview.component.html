@@ -1,0 +1,51 @@
+<mat-nav-list>
+  <div class="container">
+    <h2>Refine Your Search Here</h2>
+
+        <mat-form-field class="input_form">
+          <input matInput placeholder="Location">
+        </mat-form-field>
+        <div>
+            <mat-form-field class="input_form">
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <mat-grid-list cols="2" rowHeight="2:1" class="ngx-timepicker-field-example">
+          <mat-grid-tile>
+            <mat-form-field class="timeinput">
+              <input matInput type="time" placeholder="start time">
+            </mat-form-field>
+            <!-- <ngx-timepicker-field [defaultTime]="'11:11 am'" [controlOnly]="true" [format]="24" ></ngx-timepicker-field> -->
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="timeinput">
+              <input matInput type="time" placeholder="end time">
+            </mat-form-field>
+            <!-- <ngx-timepicker-field [defaultTime]="'11:11 am'" [controlOnly]="true" [format]="24" ></ngx-timepicker-field> -->
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
+            <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
+        </div>  -->
+      
+        <div class="type-list">
+          <div>Choose Type</div>
+          <div id="selectType">
+            <span><mat-checkbox color="primary" [(ngModel)]="isSelectedAll" (change)="makeSelectAll();" [ngModelOptions]="{standalone: true}">Any</mat-checkbox></span>
+            <span *ngFor="let type of chargerTypes">
+              <mat-checkbox color="primary" value="{{type.id}}" [(ngModel)]="type.selected" (change)="collectSelectedTypes()" [ngModelOptions]="{standalone: true}">
+                Type {{type.typeId}}
+              </mat-checkbox>
+            </span>
+          </div>
+          <div class="login-actions">
+            <button mat-raised-button color="primary" class="search-button" (click)="redefineSearch()">Search</button>
+          </div>
+        </div>
+</div>
+</mat-nav-list>

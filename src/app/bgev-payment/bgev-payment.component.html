@@ -1,0 +1,45 @@
+<div>
+   <mat-card class="payment">
+       <mat-card-header *ngIf = "loginType != 'cp'">
+           <h2>Payment</h2>
+       </mat-card-header>
+       <mat-card-header *ngIf = "loginType == 'cp'">
+        <h2>Reciept</h2>
+    </mat-card-header>
+       <mat-card-content class="billing-details" *ngFor = 'let billingDetail of billingDetails'>
+           <!-- <ul class="billing-details">
+               <li>
+                    <strong>Consumption:</strong> {{billingDetail.consumption}}
+               </li>
+               <li>
+                    <strong>Duration:</strong> {{billingDetail.duration}}
+               </li>
+               <li>
+                    <strong>Amount Payable:</strong> {{billingDetail.amount | currency:"GBP"}}
+               </li>
+           </ul> -->
+           <table>
+               <tr>
+                   <td><strong>Consumption</strong></td>
+                   <td><strong>:</strong></td>
+                   <td>{{billingDetail.consumption}}</td>
+               </tr>
+               <tr>
+                   <td><strong>Duration</strong></td>
+                   <td><strong>:</strong></td>
+                   <td>{{billingDetail.duration}}</td>
+               </tr>
+               <tr>
+                   <td><strong>Amount Payable</strong></td>
+                   <td><strong>:</strong></td>
+                   <td>{{billingDetail.amount | currency:"GBP"}}</td>
+               </tr>
+           </table>
+       </mat-card-content>
+       <mat-card-actions class="pay-button" *ngIf = "loginType != 'cp'">
+           <a mat-raised-button color="primary" (click)="paymentSuccess()">Pay</a> 
+       </mat-card-actions>
+       <mat-card-actions class="pay-button" *ngIf = "loginType == 'cp'">
+    </mat-card-actions>
+   </mat-card>
+</div>

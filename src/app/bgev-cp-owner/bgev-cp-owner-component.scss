@@ -1,0 +1,46 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+  
+.example-container > * {
+    width: 100%;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+.login-actions {
+    margin: auto;
+    text-align: center;
+    & button{
+        margin-right: 8px;
+    }
+}
+
+.example-tab-icon {
+    margin-right: 8px;
+}
+
+.spinnerContainer {
+    position: fixed;
+    top: 35%;
+    & img {
+        width: 110%;
+    }
+}

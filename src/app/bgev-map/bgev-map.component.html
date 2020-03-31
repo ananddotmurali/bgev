@@ -1,0 +1,104 @@
+<div>
+     <mat-card class="example-card">
+        <mat-card-content>
+            <div class="map-container">
+                <!-- <a mat-raised-button color="primary" (click)="showSearch()">Refine Search</a> -->
+                <div id="mapContainer" #mapp>
+                    <button mat-mini-fab color="primary" class="search-icon" (click)="showSearch()">
+                        <mat-icon>youtube_searched_for
+
+                        </mat-icon>
+                      </button>
+                </div>
+                <div class="slider">
+                   <!--  <bgev-slider></bgev-slider> -->
+                   <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+                   <div class="carousel">
+                    <!-- <mat-card id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
+                        <mat-card-header>
+                            <mat-icon style="background-size: cover;">youtube_searched_for</mat-icon>
+                            <mat-card-title>Shiba Inu</mat-card-title>
+                            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                          </mat-card-header>
+                        <mat-card-content id={{$index}}>
+                
+                            <h1>{{slideContent.text}}</h1>
+                        </mat-card-content>
+                    </mat-card> -->
+                    <mat-card class="example-card" id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>{{slideContent.owner}}</mat-card-title>
+                          <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/hour</mat-card-subtitle>
+                        </mat-card-header>
+                        
+                        <mat-card-content id={{$index}} (scroll)="onChange($index)">
+                                <table>
+                                    <tr>
+                                        <td><strong>Place</strong></td>
+                                        <td><strong>:</strong></td>
+                                        <td>{{slideContent.place}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong> Types Available</strong></td>
+                                        <td><strong>:</strong></td>
+                                        <td>{{slideContent.typesAvailable}}</td>
+                                    </tr>    
+                                </table>
+                            
+                            
+                        </mat-card-content>
+                        <!-- <mat-card-actions>
+                          <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button>
+                        </mat-card-actions> -->
+                      </mat-card>
+
+                </div>
+                <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+               </div>
+            </div>
+            
+        </mat-card-content>
+        <mat-card-actions class="login-actions">
+            <!-- <mat-carousel
+            [autoplay]="false"
+            color='primary'
+            slides="{{slideLen}}"
+            [loop]="true"
+            (change)='onChange($event)'
+            (click)='openDialog()'>
+            <mat-carousel-slide
+                #matCarouselSlide
+                overlayColor={{getColor(slide)}}
+                *ngFor="let slide of filteredSlideContents; let i = index">
+                <mat-grid-list cols="2" rowHeight="2:1" class="white-text">
+                    <mat-grid-tile>
+                        <ul class="placesul">
+                            <li>Place: {{slide.place}}</li>
+                            <li>Pricing: {{slide.pricing}}</li>
+                        </ul>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <ul class="placesul">
+                            <li>Owned By: {{slide.owner}}</li>
+                            <li>Availablity: {{slide.availablity}}</li>
+                            <li>Charge Type: {{slide.typesAvailable}}</li>
+                        </ul>                            
+                    </mat-grid-tile>
+                    
+                  </mat-grid-list>
+                  
+            </mat-carousel-slide>
+        </mat-carousel> -->
+        
+        
+        </mat-card-actions>
+    </mat-card>
+    
+</div>
+<div>
+</div>
+<!-- <div class="login-actions">
+    <button mat-raised-button color="primary" class="search-buttons" (click)="showSearch()">Refine Search</button>
+</div> -->

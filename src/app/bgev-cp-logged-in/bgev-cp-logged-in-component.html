@@ -1,0 +1,124 @@
+<!-- Material Tab -->
+  <mat-card>
+    <mat-card-content>
+      <h2 class="example-h2">Welcome {{user.name}}</h2>
+      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">history</mat-icon>
+                <p>
+                  <span matBadge="{{requests.length}}" matBadgeOverlap="false">Requests</span>
+                </p>
+            </ng-template>
+              <mat-list *ngIf="requests.length > 0">
+                <mat-list-item *ngFor="let request of requests; let indx = index">
+                  <mat-icon matListIcon>how_to_reg</mat-icon>
+                  <h3 matLine> <strong>Name:</strong> {{request.name}} </h3>
+                  <p matLine> <strong>Type:</strong> {{request.type}} </p>
+                  <p matLine class="demo-2"> <strong>Date: </strong> {{request.date}} </p>
+                  <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging"><strong>Charging...</strong></p>
+                  <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Charging Completed</strong></p>
+                  <mat-action-list *ngIf="!request.isAccepted">
+                    <button mat-icon-button color="primary" (click)="requestHandler('Accepted', indx)"><mat-icon>done</mat-icon></button>
+                    <button mat-icon-button color="warn" (click)="requestHandler('Rejected', indx)"><mat-icon>clear</mat-icon></button>
+                  </mat-action-list>
+                  <mat-action-list *ngIf="request.isAccepted && request.chargeComplete">
+                    <button mat-icon-button (click)="receipt()"><mat-icon>receipt</mat-icon></button>
+                  </mat-action-list>
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+              </mat-list>
+              <div *ngIf="requests.length === 0" class="done_card">
+                <div class="done_icon">
+                  <mat-icon color="primary">check_circle_outline</mat-icon>
+                </div>
+                <div class="done-message">
+                  You're done with all the requests...
+                </div>
+              </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">settings</mat-icon>
+                Manage
+            </ng-template>
+            <div class="container">
+              <mat-card class="availability-card">
+                  <mat-card-header>    
+                      <h4>Type 1</h4>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <mat-grid-list cols="1" rowHeight="100px">
+                          <mat-grid-tile>
+                              <mat-slide-toggle
+                              [checked]="anyOnechecked"
+                              [color]="color">
+                                  Availability
+                              </mat-slide-toggle>
+                          </mat-grid-tile>
+                          <mat-grid-tile>
+                              <mat-form-field appearance="outline" class="text-full-width">
+                                  <mat-label>Price/Unit</mat-label>
+                                  <input matInput placeholder="Price/Unit" value="150">
+                                  <mat-icon matSuffix>money</mat-icon>
+                              </mat-form-field>
+                          </mat-grid-tile>
+                      </mat-grid-list>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="container">
+              <mat-card class="availability-card">
+                  <mat-card-header>
+                      <h4>Type 2</h4>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <mat-grid-list cols="1" rowHeight="100px">
+                          <mat-grid-tile>
+                              <mat-slide-toggle
+                              [color]="color">
+                                  Availability
+                              </mat-slide-toggle>
+                          </mat-grid-tile>
+                          <mat-grid-tile>
+                              <mat-form-field appearance="outline" class="text-full-width">
+                                  <mat-label>Price/Unit</mat-label>
+                                  <input matInput placeholder="Price/Unit">
+                                  <mat-icon matSuffix>money</mat-icon>
+                              </mat-form-field>
+                          </mat-grid-tile>
+                      </mat-grid-list>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="container">
+              <mat-card class="availability-card">
+                  <mat-card-header>
+                      <h4>Type 3</h4>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <mat-grid-list cols="1" rowHeight="100px">
+                          <mat-grid-tile>
+                              <mat-slide-toggle
+                              [checked]="anyOnechecked"
+                              [color]="color">
+                                  Availability
+                              </mat-slide-toggle>
+                          </mat-grid-tile>
+                          <mat-grid-tile>
+                              <mat-form-field appearance="outline" class="text-full-width">
+                                  <mat-label>Price/Unit</mat-label>
+                                  <input matInput placeholder="Price/Unit">
+                                  <mat-icon matSuffix>money</mat-icon>
+                              </mat-form-field>
+                          </mat-grid-tile>
+                      </mat-grid-list>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+</mat-card>

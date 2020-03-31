@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <h4>How would you like to continue?</h4>
+    </mat-card-header>
+    <mat-card-content>
+        <div matRipple class="example-small-box mat-elevation-z4" (click)="redirectToRegister('cpowner')">
+        <div>
+            <mat-icon  class="register-icon">battery_charging_full</mat-icon>
+        </div>
+        <p>Charge Point Owner</p>
+        </div>
+        <div matRipple class="example-small-box mat-elevation-z4" (click)="redirectToRegister('evowner')">
+        <div>
+            <mat-icon  class="register-icon">directions_car</mat-icon>
+        </div>
+        <p>EV Owner</p>
+        </div>
+    </mat-card-content>
+</mat-card>

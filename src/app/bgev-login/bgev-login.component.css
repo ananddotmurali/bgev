@@ -1,0 +1,26 @@
+.imgcontainers {
+    height: 100%;
+}
+
+.bgimg {
+    background-image: url('/assets/imgs/bg-img1.jpg');
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 260px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    width: 100%;    
+}
+
+.login-actions {
+    margin: auto;
+    text-align: center;
+}
+
+.login-actions a {
+    margin-bottom: 10px;
+}
+
+form {
+    margin: 0 10%;
+}

@@ -1,0 +1,95 @@
+.placesul > li {
+    list-style: none;
+    padding: 1px;
+}
+.placesul {
+    padding: 0;
+}
+
+.white-text {
+    color: whitesmoke;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.filter-button {
+    margin: 10px;
+}
+
+#mapContainer {
+    height: calc(100vh - 180px);
+    width: 100%;
+}
+
+.mat-card{ 
+    padding: 0;
+}
+
+.login-actions {
+    margin: auto;
+    text-align: center;
+}
+
+.login-actions a {
+    margin-bottom: 10px;
+}
+
+.search-icon {
+    position: absolute;
+    z-index: 9999;
+    right: 0;
+}
+
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&& */
+.carousel {
+	font-family: sans-serif;
+	scroll-snap-type: x mandatory;	
+	display: flex;
+	-webkit-overflow-scrolling: touch;
+    overflow-x: scroll;
+    position: absolute;
+    z-index: 9999;
+    top: 80%;
+    width: 100%;
+    .scrolling-wrapper {
+        &::-webkit-scrollbar {
+          display: none;
+        }
+    }
+    // margin: 1%;
+
+    & mat-card {
+        padding: 1rem;
+        min-width: 70vw;
+        height: 14vh;
+        scroll-snap-align: center;
+        // background-color: #3f51b5;
+        margin: 1.5%;
+    }
+    // & h1	{
+    //     position: absolute;
+    //     top: 50%;
+    //     transform: translateY(-50%);
+    //     text-align: center;
+        
+    //     width: 100%;
+    //     left: 0;
+    // }
+}
+.carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('/assets/imgs/profile_pic.png');
+    background-size: cover;
+  }
+  
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&& */

@@ -1,0 +1,37 @@
+<div class="intropageContent">
+    <mat-card>
+        <mat-card-content>
+            <nav mat-tab-nav-bar [backgroundColor]="background" mat-stretch-tabs>
+                <a mat-tab-link *ngFor="let link of links; let indx = index;"
+                   (click)="updateActiveLink();activeLink = link"
+                   [active]="activeLink == link"> <mat-icon class="example-tab-icon">{{linksIcons[indx]}}</mat-icon> {{link}} </a>                   
+            </nav>
+            <bgev-map *ngIf="activeLink=='Search'"></bgev-map>
+            <bgev-login *ngIf="activeLink=='Login'"></bgev-login>
+            <bgev-register *ngIf="activeLink=='Register'"></bgev-register>
+            <!-- <mat-tab-group>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">search</mat-icon>
+                        Search
+                    </ng-template>
+                    <bgev-map></bgev-map>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">people_alt</mat-icon>
+                        Login
+                    </ng-template>
+                    <bgev-login></bgev-login>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">person_add</mat-icon>
+                        Register
+                    </ng-template>
+                    <bgev-register></bgev-register>
+                </mat-tab>
+            </mat-tab-group> -->
+        </mat-card-content>
+    </mat-card>
+</div>

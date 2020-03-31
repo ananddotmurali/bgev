@@ -1,0 +1,19 @@
+.pay-button {
+    text-align: center;
+}
+
+mat-card-header{
+    margin-right: 25%;
+    margin-left: 25%;
+}
+.payment {
+    margin-top: 50%;
+}
+mat-card-content {
+    margin-left: 19%;
+    margin-right: 19%;
+}
+
+li {
+    text-align: start;
+}

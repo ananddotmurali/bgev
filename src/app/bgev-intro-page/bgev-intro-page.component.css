@@ -1,0 +1,12 @@
+.intropageContent {
+    height: calc(90vh);
+  }
+
+.intropageContent mat-card {
+    margin: 5px;
+    padding: 0;
+}
+
+.example-tab-icon {
+  margin-right: 8px;
+}

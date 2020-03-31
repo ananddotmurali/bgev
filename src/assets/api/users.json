@@ -1,0 +1,42 @@
+[
+        {
+        "id": 1,
+        "place": "North Yorkshire",
+        "lat": 12.976520,
+        "lng": 80.189806,
+        "pricing": 25,
+        "owner": "User1",
+        "availablity": "Yes",
+        "typesAvailable": ["1","3"]
+    },
+    {
+        "id": 2,
+        "place": "Pickering",
+        "lat": 13.027844,
+        "lng": 80.235365,
+        "pricing": 26,
+        "owner": "User2",
+        "availablity": "Yes",
+        "typesAvailable": ["2"]
+    },
+    {
+        "id": 3,
+        "place": "North Yorkshire",
+        "lat": 13.039622,
+        "lng": 80.263007,
+        "pricing": 27,
+        "owner": "User3",
+        "availablity": "Yes",
+        "typesAvailable": ["1","2"]
+    },
+    {
+        "id": 4,
+        "place": "Clover Bridge",
+        "lat": 13.007638,
+        "lng": 80.203730,
+        "pricing": 24,
+        "owner": "User4",
+        "availablity": "Yes",
+        "typesAvailable": ["3"]
+    }
+]    
