@@ -1,45 +1,46 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
+
+export interface Transaction {
+    item: string;
+    value: any;
+}
 
 @Component({
     selector: 'bgev-payment',
     templateUrl: './bgev-payment.component.html',
-    styleUrls: ['./bgev-payment.component.css']
+    styleUrls: ['./bgev-payment.component.scss']
 })
 
-export class BgEvPaymentComponent implements OnInit{
-    
-    billingDetails = []
-    noOfReq = 0;
-    requests = [];
-    loginType ;
-    constructor(private router: Router) {}
-    
+export class BgEvPaymentComponent implements OnInit {
+    loginType: string;
+    totalAmnt = this.generateRandomNumber(10, 90);
+    displayedColumns: string[] = ['item', 'value'];
+    transactions: Transaction[] = [
+        { item: 'Consumption', value: this.generateRandomNumber(20, 50) + ' kWh' },
+        { item: 'Duration', value: this.generateRandomNumber(1, 3) + ' hr' },
+        { item: 'Discounts', value: this.currencyPipe.transform(0, 'GBP') },
+        { item: 'Tariff', value: this.currencyPipe.transform(this.generateRandomNumber(1, 5), 'GBP') + '/hr' },
+        { item: 'Misc', value: this.currencyPipe.transform(0, 'GBP') },
+        { item: 'Donations', value: this.currencyPipe.transform(0, 'GBP') },
+    ];
+
+    constructor(private router: Router, private currencyPipe: CurrencyPipe) { }
+
     ngOnInit() {
         this.loginType = localStorage.getItem('loginType');
-        this.generateRandData();        
     }
 
-    generateRandomNumber(from, to) {
-        return Math.floor(Math.random() * 1) + from  
-    }
-
-    generateRandData() {
-        let finalArr = [];
-        let iteratorObj = {};
-        for(let i=0; i<1;i++) {
-            iteratorObj = {};
-            iteratorObj['consumption'] = this.generateRandomNumber(145, 150) +'kWh';
-            iteratorObj['duration'] = this.generateRandomNumber(1,1) +'Hour';
-            iteratorObj['amount'] = this.generateRandomNumber(25, 30);
-            finalArr.push(iteratorObj);
-        }
-        this.billingDetails = finalArr;
-        console.log(this.billingDetails);
-        console.log(this.loginType);
+    generateRandomNumber(Hl: number, Ll: number) {
+        return Math.floor(Math.random() * (Hl - Ll + 1)) + Ll;
     }
 
     paymentSuccess() {
         this.router.navigate([`./payment-success`]);
+    }
+
+    getTotalCost() {
+        return this.totalAmnt;
     }
 }

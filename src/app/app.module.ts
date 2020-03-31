@@ -28,6 +28,7 @@ import { BgEvPaymentComponent } from './bgev-payment/bgev-payment.component';
 import { BgEvPaymentSuccessComponent } from './bgev-payment/bgev-payment-success.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BgEvChargingPageComponent } from './bgev-charging-page/bgev-charging-page.component';
+import { CurrencyPipe } from '@angular/common';
 
 const appRoutes: Routes = [
   { path: 'home', component: BgEvIntroPageComponent },
@@ -81,6 +82,6 @@ const appRoutes: Routes = [
   ],
   entryComponents: [DialogContentComponent],
   bootstrap: [AppComponent],
-  providers: [BgEvConfigService]
+  providers: [BgEvConfigService, CurrencyPipe]
 })
 export class AppModule { }
