@@ -13,18 +13,39 @@
           <mat-icon class="example-tab-icon">history</mat-icon>
           History
         </ng-template>
-        <div class="done-message">
-          You're yet to start...
-        </div>
-        <!-- <mat-list *ngIf="requests.length > 0">
+        <mat-list *ngIf="requests.length > 0">
           <mat-list-item *ngFor="let request of requests; let indx = index">
             <mat-icon matListIcon>how_to_reg</mat-icon>
             <h3 matLine> <strong>Name:</strong> {{request.name}} </h3>
             <p matLine> <strong>Type:</strong> {{request.type}} </p>
             <p matLine class="demo-2"> <strong>Date: </strong> {{request.date}} </p>
+            <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging">
+              <strong>Charging...</strong></p>
+            <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Charging Completed</strong></p>
+            <mat-action-list *ngIf="!request.isAccepted">
+              <button mat-icon-button color="primary" (click)="requestHandler('Accepted', indx)">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="requestHandler('Rejected', indx)">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-action-list>
+            <mat-action-list *ngIf="request.isAccepted && request.chargeComplete">
+              <button mat-icon-button (click)="receipt()">
+                <mat-icon>receipt</mat-icon>
+              </button>
+            </mat-action-list>
             <mat-divider></mat-divider>
           </mat-list-item>
-        </mat-list> -->
+        </mat-list>
+        <div *ngIf="requests.length === 0" class="done_card">
+          <div class="done_icon">
+            <mat-icon color="primary">check_circle_outline</mat-icon>
+          </div>
+          <div class="done-message">
+            You're yet to start...
+          </div>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>
