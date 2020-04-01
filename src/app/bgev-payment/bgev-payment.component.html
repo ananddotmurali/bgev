@@ -1,38 +1,45 @@
 <div>
-    <mat-card class="payment">
-        <mat-card-header *ngIf="loginType != 'cp'">
-            <h2>Payment</h2>
-        </mat-card-header>
-        <mat-card-header *ngIf="loginType == 'cp'">
-            <h2>Reciept</h2>
-        </mat-card-header>
-        <mat-card-content class="billing-detailss">
-            <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
-                <!-- Item Column -->
-                <ng-container matColumnDef="item">
-                    <th mat-header-cell *matHeaderCellDef> Item </th>
-                    <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
-                    <td mat-footer-cell *matFooterCellDef> Total </td>
-                </ng-container>
+    <div *ngIf="!loadComplete && loginType != 'cp'" class="spinnerContainer">
+        <h2 class="charging">Charging...</h2>
+        <img src="assets/imgs/charge2.gif" alt="">
+        <!-- <mat-spinner></mat-spinner> -->
+    </div>
+    <div *ngIf="loadComplete">
+        <mat-card class="payment">
+            <mat-card-header *ngIf="loginType != 'cp'">
+                <h2>Payment</h2>
+            </mat-card-header>
+            <mat-card-header *ngIf="loginType == 'cp'">
+                <h2>Reciept</h2>
+            </mat-card-header>
+            <mat-card-content class="billing-detailss">
+                <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+                    <!-- Item Column -->
+                    <ng-container matColumnDef="item">
+                        <th mat-header-cell *matHeaderCellDef> Item </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
+                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
 
-                <!-- Cost Column -->
-                <ng-container matColumnDef="value">
-                    <th mat-header-cell *matHeaderCellDef> Value </th>
-                    <td mat-cell *matCellDef="let transaction"> {{transaction.value}} </td>
-                    <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'GBP'}} </td>
-                </ng-container>
+                    <!-- Cost Column -->
+                    <ng-container matColumnDef="value">
+                        <th mat-header-cell *matHeaderCellDef> Value </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.value}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'GBP'}} </td>
+                    </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-            </table>
-        </mat-card-content>
-        <mat-card-actions class="pay-button" *ngIf="loginType != 'cp'">
-            <a mat-raised-button color="primary" (click)="paymentSuccess()">Pay</a>
-            <div>*This is an electronically generated invoice, no signature is required</div>
-        </mat-card-actions>
-        <mat-card-actions class="pay-button" *ngIf="loginType == 'cp'">
-            <div>*This is an electronically generated invoice, no signature is required</div>
-        </mat-card-actions>
-    </mat-card>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                </table>
+            </mat-card-content>
+            <mat-card-actions class="pay-button" *ngIf="loginType != 'cp'">
+                <a mat-raised-button color="primary" (click)="paymentSuccess()">Pay</a>
+                <div>*This is an electronically generated invoice, no signature is required</div>
+            </mat-card-actions>
+            <mat-card-actions class="pay-button" *ngIf="loginType == 'cp'">
+                <div>*This is an electronically generated invoice, no signature is required</div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

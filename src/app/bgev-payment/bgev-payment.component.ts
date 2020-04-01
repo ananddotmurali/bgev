@@ -25,11 +25,15 @@ export class BgEvPaymentComponent implements OnInit {
         { item: 'Misc', value: this.currencyPipe.transform(0, 'GBP') },
         { item: 'Donations', value: this.currencyPipe.transform(0, 'GBP') },
     ];
+    loadComplete= false;
 
     constructor(private router: Router, private currencyPipe: CurrencyPipe) { }
 
     ngOnInit() {
         this.loginType = localStorage.getItem('loginType');
+        setTimeout(() => {
+            this.loadComplete = true;
+        }, 5000)
     }
 
     generateRandomNumber(Hl: number, Ll: number) {

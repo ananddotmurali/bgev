@@ -16,6 +16,7 @@ export class BgEvCpLoggedInComponent implements OnInit{
     requests = [];
     color: string ="primary";
     anyOnechecked: boolean = true;
+    loadcomplete: boolean;
     constructor(private router: Router, private _snackBar: MatSnackBar) {
         this._snackBar.open('Logged in Successfully.', '', {
             duration: 2000
@@ -24,6 +25,7 @@ export class BgEvCpLoggedInComponent implements OnInit{
 
     ngOnInit() {
         localStorage.setItem('loginType', 'cp');
+        this.loadcomplete = true;
         this.noOfReq = this.generateRandomNumber(0, 10);
         this.generateRandData();        
     }

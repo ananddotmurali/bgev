@@ -27,10 +27,14 @@ constructor(private _bottomSheetRef: MatBottomSheetRef<BgEvMapOverviewComponent>
     }
 
     makeSelectAll() {
-        return true;
+        for (var i = 0; i < this.chargerTypes.length; i++) {
+            this.chargerTypes[i].selected = this.isSelectedAll;
+          }
     }
 
     collectSelectedTypes() {
-        return true;
+        this.isSelectedAll = this.chargerTypes.every(function(item:any) {
+            return item.selected == true;
+          })
     }
 }

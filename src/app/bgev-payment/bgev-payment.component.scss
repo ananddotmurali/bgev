@@ -23,3 +23,13 @@ tr.mat-footer-row {
     font-weight: bold;
 }
   
+.spinnerContainer {
+    position: fixed;
+    top: 35%;
+    & img {
+        width: 110%;
+    }
+    text-align: center;
+    color: blue;
+}
+
