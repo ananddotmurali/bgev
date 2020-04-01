@@ -1,0 +1,17 @@
+.done-message {
+    margin-top: 5%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.done_card {
+    margin: 18% 0;  
+}
+
+.done_icon {
+    margin: 0 28%;
+    opacity: .7;
+    & > mat-icon {
+      font-size: 130px;
+    }
+}
