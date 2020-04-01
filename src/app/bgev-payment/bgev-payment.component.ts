@@ -33,7 +33,7 @@ export class BgEvPaymentComponent implements OnInit {
         this.loginType = localStorage.getItem('loginType');
         setTimeout(() => {
             this.loadComplete = true;
-        }, 5000)
+        }, 10000)
     }
 
     generateRandomNumber(Hl: number, Ll: number) {

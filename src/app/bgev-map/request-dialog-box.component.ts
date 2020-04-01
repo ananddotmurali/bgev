@@ -14,7 +14,7 @@ export class RequestDialogBoxComponent implements OnInit {
   constructor(private router: Router,public dialogRef: MatDialogRef<RequestDialogBoxComponent>,private _snackBar: MatSnackBar) { }
   giveRequest(){
     this._snackBar.open('Requested', '', {
-      duration: 3000
+      duration: 1500
   });
   this.dialogRef.close();
   /* setTimeout(function () {
@@ -22,6 +22,9 @@ export class RequestDialogBoxComponent implements OnInit {
  }, 2000); */
  setTimeout(() => {
   this.router.navigate(['./payment']);
+  this._snackBar.open('Request Accepted', '', {
+    duration: 1500
+});
 }, 2500);
 }
   onNoClick(): void {
