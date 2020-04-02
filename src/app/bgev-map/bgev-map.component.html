@@ -1,5 +1,5 @@
 <div>
-     <mat-card class="example-card">
+    <mat-card class="example-card">
         <mat-card-content>
             <div class="map-container">
                 <!-- <a mat-raised-button color="primary" (click)="showSearch()">Refine Search</a> -->
@@ -8,13 +8,13 @@
                         <mat-icon>youtube_searched_for
 
                         </mat-icon>
-                      </button>
+                    </button>
                 </div>
                 <div class="slider">
-                   <!--  <bgev-slider></bgev-slider> -->
-                   <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
-                   <div class="carousel">
-                    <!-- <mat-card id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
+                    <!--  <bgev-slider></bgev-slider> -->
+                    <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+                    <div class="carousel">
+                        <!-- <mat-card id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
                         <mat-card-header>
                             <mat-icon style="background-size: cover;">youtube_searched_for</mat-icon>
                             <mat-card-title>Shiba Inu</mat-card-title>
@@ -25,14 +25,15 @@
                             <h1>{{slideContent.text}}</h1>
                         </mat-card-content>
                     </mat-card> -->
-                    <mat-card class="example-card" id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>{{slideContent.owner}}</mat-card-title>
-                          <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/hour</mat-card-subtitle>
-                        </mat-card-header>
-                        
-                        <mat-card-content id={{$index}} (scroll)="onChange($index)">
+                        <mat-card class="example-card" id="A{{ind}}"
+                            *ngFor="let slideContent of slideContents; let ind = index" (click)="openDialog()">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image"></div>
+                                <mat-card-title>{{slideContent.owner}}</mat-card-title>
+                                <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/hour</mat-card-subtitle>
+                            </mat-card-header>
+
+                            <mat-card-content id={{$index}} (scroll)="onChange($index)">
                                 <table>
                                     <tr>
                                         <td><strong>Place</strong></td>
@@ -43,22 +44,18 @@
                                         <td><strong> Types Available</strong></td>
                                         <td><strong>:</strong></td>
                                         <td>{{slideContent.typesAvailable}}</td>
-                                    </tr>    
+                                    </tr>
                                 </table>
-                            
-                            
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="primary" class="request-button" (click)="openDialog()">Request</button>
-                          <!-- <button mat-raised-button>SHARE</button> -->
-                        </mat-card-actions>
-                      </mat-card>
 
+
+                            </mat-card-content>
+                        </mat-card>
+
+                    </div>
+                    <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
                 </div>
-                <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
-               </div>
             </div>
-            
+
         </mat-card-content>
         <mat-card-actions class="login-actions">
             <!-- <mat-carousel
@@ -91,11 +88,11 @@
                   
             </mat-carousel-slide>
         </mat-carousel> -->
-        
-        
+
+
         </mat-card-actions>
     </mat-card>
-    
+
 </div>
 <div>
 </div>

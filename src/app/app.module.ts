@@ -29,21 +29,22 @@ import { BgEvPaymentSuccessComponent } from './bgev-payment/bgev-payment-success
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BgEvChargingPageComponent } from './bgev-charging-page/bgev-charging-page.component';
 import { CurrencyPipe } from '@angular/common';
+import { RequestDialogBoxComponent } from './bgev-map/request-dialog-box.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: BgEvIntroPageComponent },
   { path: 'search', component: BgEvMapComponent },
   { path: 'login', component: BgEvLoginComponent },
   { path: 'register', component: BgEvRegisterComponent },
-  { path: 'evowner', component:  BgEvOwnerComponent},
+  { path: 'evowner', component: BgEvOwnerComponent },
   { path: 'cpowner', component: BgCpOwnerComponent },
   { path: 'cploggedin', component: BgEvCpLoggedInComponent },
   { path: 'evloggedin', component: BgEvEvLoggedInComponent },
-  { path: 'slider', component:  BgEvSliderComponent },
+  { path: 'slider', component: BgEvSliderComponent },
   { path: 'payment', component: BgEvPaymentComponent },
   { path: 'payment-success', component: BgEvPaymentSuccessComponent },
   { path: 'charging', component: BgEvChargingPageComponent },
-  { path: '**',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -78,9 +79,10 @@ const appRoutes: Routes = [
     BgEvEvLoggedInComponent,
     BgEvSliderComponent,
     BgEvPaymentComponent,
-    BgEvPaymentSuccessComponent
+    BgEvPaymentSuccessComponent,
+    RequestDialogBoxComponent
   ],
-  entryComponents: [DialogContentComponent],
+  entryComponents: [DialogContentComponent, RequestDialogBoxComponent],
   bootstrap: [AppComponent],
   providers: [BgEvConfigService, CurrencyPipe]
 })

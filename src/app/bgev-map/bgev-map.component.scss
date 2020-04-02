@@ -52,7 +52,7 @@
     overflow-x: scroll;
     position: absolute;
     z-index: 9999;
-    top: 70%;
+    top: 67%;
     width: 100%;
     .scrolling-wrapper {
         &::-webkit-scrollbar {
@@ -64,7 +64,7 @@
     & mat-card {
         padding: 1rem;
         min-width: 70vw;
-        height: 24vh;
+        // height: 24vh;
         scroll-snap-align: center;
         // background-color: #3f51b5;
         margin: 1.5%;
