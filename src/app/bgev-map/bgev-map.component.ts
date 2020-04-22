@@ -31,7 +31,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       lat: 52.96395945,
       lng: -1.784346,
       "pricing": 26,
-      "owner": "User1",
+      "owner": "Michael Clarke",
       "availablity": "Yes",
       "typesAvailable": ["2"]
     },
@@ -41,7 +41,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       lat: 53.25943673,
       lng: -1.60289329,
       "pricing": 25,
-      "owner": "User2",
+      "owner": "Gibbs",
       "availablity": "Yes",
       "typesAvailable": ["1", "3"]
     },
@@ -51,7 +51,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       lat: 54.57994555,
       lng: -2.71015136,
       "pricing": 27,
-      "owner": "User3",
+      "owner": "Mcarthur",
       "availablity": "Yes",
       "typesAvailable": ["1", "2"]
     },
@@ -61,7 +61,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       lat: 53.82501878,
       lng: -1.74335666,
       "pricing": 24,
-      "owner": "User4",
+      "owner": "Luke Wright",
       "availablity": "Yes",
       "typesAvailable": ["3"]
     }
@@ -75,7 +75,9 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   carousel: Element;
   elements: any = [];
   elementIndices = {};
-  constructor(private bgevService: BgEvService, public dialog: MatDialog, private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService) {
+  loggedIn: string;
+  constructor(private bgevService: BgEvService, public dialog: MatDialog, 
+    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService) {
     this.intersectionObserver = null;
     this.platform = new H.service.Platform({
       apikey: 'Y_bhbqaJHZK-B-xpbBxIA1CavyvZ-sheohUgOqphVu8'
@@ -207,14 +209,16 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   showSearch() {
     this._bottomSheet.open(BgEvMapOverviewComponent);
   }
-
+  // activeLink = this.configService.getCurrentTab();
   openDialog(): void {
-    const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
-      width: '400px'
-    });
+      const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
+        width: '400px'
+      });
+    
   }
 
   ngOnInit(): void {
+    this.loggedIn = localStorage.getItem('loggedIn');
     console.log('inside oninit');
     let contentsToDisplay: any = [];
     // this.bgevService.getUserDetails().subscribe({

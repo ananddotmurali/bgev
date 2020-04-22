@@ -15,6 +15,7 @@ export class BgEvEvLoggedInComponent implements OnInit {
     requests = [];
     ngOnInit() {
         localStorage.setItem('loginType', 'ev');
+        localStorage.setItem('loggedIn', 'yes');
         this.noOfReq = this.generateRandomNumber(0, 10);
         this.generateRandData();
     }

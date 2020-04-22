@@ -15,6 +15,10 @@ export class BgEvConfigService {
         return this.currentTab;
     }
 
+    redirectToTab() {
+        this.currentTab ='Login';
+    }
+
     getMapCoords() {
         return [
             { lat: 53.06169826, lng:-0.99193897 },
