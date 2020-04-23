@@ -2,8 +2,8 @@
     
     <img mat-card-image src="/assets/imgs/profile_pic.png" alt="Profile Pic">
     <mat-card-actions class="buttons">
-        <button mat-raised-button color="warn">Cancel</button>
-        <button mat-raised-button color="primary">Request</button>
+        <button mat-raised-button color="warn" (click)="goBack()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="requested()">Request</button>
     </mat-card-actions>
   </mat-card>
   <mat-card class="example-card">
@@ -33,14 +33,17 @@
 </mat-card-content>
 </mat-card>
 
-  <mat-card class="example-card">
-      <mat-card-header>
-          <h3>Amenties</h3>
-      </mat-card-header>
+<mat-card class="example-card" *ngIf="amenities">
+    <mat-card-header>
+        <h3>Amenties</h3>
+    </mat-card-header>
     <mat-card-content>
-        <mat-icon matSuffix>{{chargePointDetails.amenties[0].icon}}</mat-icon>
-        <p>{{chargePointDetails.amenties[0].icon_name}}</p>
+        <mat-grid-list cols="3" fit>
+            <mat-grid-tile *ngFor="let icon of amenities; let indx = index">
+                <mat-icon matSuffix class="amenity_icon">{{icon.icon}}</mat-icon>
+                <div class="amenity_description">{{icon.icon_name}}</div>
+            </mat-grid-tile>
+        </mat-grid-list>
     </mat-card-content>
-  </mat-card>
-
-  
+</mat-card>
+    

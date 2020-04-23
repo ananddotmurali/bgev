@@ -1,20 +1,28 @@
-.example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
   
 .buttons {
-    text-align: center;
-}  
+  text-align: center;
+}
 
-mat-card-header {
-  display: block;
+mat-card {
+  margin: 6px 3px;
+  &-header {
+    display: block;
+  }
 }
 
 .rating {
   z-index: 9999;
+}
+
+.amenity_ {
+   &description {
+    position: absolute;
+    bottom: 20px;
+    color: rgba(0,0,0,.75)
+  }
+
 }

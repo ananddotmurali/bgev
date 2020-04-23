@@ -35,7 +35,6 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       "owner": "Michael Clarke",
       "availablity": "Yes",
       "typesAvailable": ["2"],
-      "amenties": [{"icon_name":"Store","icon":"shopping_cart"},{"icon_name":"Cafe","icon":"local_cafe"},{"icon_name":"Hospital","icon":"local_hospital"},{"icon_name":"Restaurant","icon":"local_dining"},{"icon_name":"Parking","icon":"local_parking"},{"icon_name":"Rest Room","icon":"wc"},{"icon_name":"Children Area","icon":"child_care"},{"icon_name":"Car Wash","icon":"local_car_wash"},{"icon_name":"Car Service","icon":"build"},{"icon_name":"ATM","icon":"atm"}],
       "rating": 4
     },
     {
@@ -216,9 +215,9 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   // activeLink = this.configService.getCurrentTab();
   openDialog(index: number) {
       // if(this.isLoggedIn=="no"){
-        const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
-          width: '400px'
-        });
+        // const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
+        //   width: '400px'
+        // });
     // }
     // else{
         // console.log(this.slideContents[index]);
