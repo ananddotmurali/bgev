@@ -44,9 +44,11 @@ export class BgEvRequestPageComponent implements OnInit{
         if(this.isLoggedIn) {
             this.router.navigate(['./payment']);
         } else {
+            this.configService.setCurrentTab('Login');
             this._snackBar.open('Please Login to request.', '', {
                 duration: 2000
             });
+            this.router.navigate(['./payment']);
         }       
     }
 
