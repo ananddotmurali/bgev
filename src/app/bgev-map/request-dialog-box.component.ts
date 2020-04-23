@@ -38,8 +38,9 @@ export class RequestDialogBoxComponent implements OnInit {
       this._snackBar.open('Login to Raise Request', '', {
         duration: 1500
       });
-      this.dialogRef.close();
-    }
+      this.dialogRef.close();      
+      this.router.navigate(['./payment']);
+    }  
   }
   onNoClick(): void {
     this.dialogRef.close();

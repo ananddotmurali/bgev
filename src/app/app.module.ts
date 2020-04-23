@@ -30,6 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BgEvChargingPageComponent } from './bgev-charging-page/bgev-charging-page.component';
 import { CurrencyPipe } from '@angular/common';
 import { RequestDialogBoxComponent } from './bgev-map/request-dialog-box.component';
+import { BgEvRequestPageComponent } from './bgev-request-page/bgev-request-page.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: BgEvIntroPageComponent },
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   { path: 'evloggedin', component: BgEvEvLoggedInComponent },
   { path: 'slider', component: BgEvSliderComponent },
   { path: 'payment', component: BgEvPaymentComponent },
+  { path: 'request-page', component: BgEvRequestPageComponent },
   { path: 'payment-success', component: BgEvPaymentSuccessComponent },
   { path: 'charging', component: BgEvChargingPageComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
@@ -79,6 +81,7 @@ const appRoutes: Routes = [
     BgEvEvLoggedInComponent,
     BgEvSliderComponent,
     BgEvPaymentComponent,
+    BgEvRequestPageComponent,
     BgEvPaymentSuccessComponent,
     RequestDialogBoxComponent
   ],

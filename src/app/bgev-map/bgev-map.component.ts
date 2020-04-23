@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { BgEvMapOverviewComponent } from '../bgev-map-overview/bgev-map-overview.component';
 import { BgEvConfigService } from 'app/bgev-config-service/bgev-config-service';
+import { Router } from '@angular/router';
 
 
 declare var H: any;
@@ -33,7 +34,9 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       "pricing": 26,
       "owner": "Michael Clarke",
       "availablity": "Yes",
-      "typesAvailable": ["2"]
+      "typesAvailable": ["2"],
+      "amenties": [{"icon_name":"Store","icon":"shopping_cart"},{"icon_name":"Cafe","icon":"local_cafe"},{"icon_name":"Hospital","icon":"local_hospital"},{"icon_name":"Restaurant","icon":"local_dining"},{"icon_name":"Parking","icon":"local_parking"},{"icon_name":"Rest Room","icon":"wc"},{"icon_name":"Children Area","icon":"child_care"},{"icon_name":"Car Wash","icon":"local_car_wash"},{"icon_name":"Car Service","icon":"build"},{"icon_name":"ATM","icon":"atm"}],
+      "rating": 4
     },
     {
       "id": 2,
@@ -76,8 +79,9 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   elements: any = [];
   elementIndices = {};
   loggedIn: string;
+  isLoggedIn: string;
   constructor(private bgevService: BgEvService, public dialog: MatDialog, 
-    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService) {
+    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService,private router: Router) {
     this.intersectionObserver = null;
     this.platform = new H.service.Platform({
       apikey: 'Y_bhbqaJHZK-B-xpbBxIA1CavyvZ-sheohUgOqphVu8'
@@ -210,15 +214,22 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
     this._bottomSheet.open(BgEvMapOverviewComponent);
   }
   // activeLink = this.configService.getCurrentTab();
-  openDialog(): void {
-      const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
-        width: '400px'
-      });
+  openDialog(index: number) {
+      // if(this.isLoggedIn=="no"){
+        const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
+          width: '400px'
+        });
+    // }
+    // else{
+        // console.log(this.slideContents[index]);
+        this.bgevService.changeData(this.slideContents[index]);
+        this.router.navigate(['./request-page']);
+    // }
     
   }
 
   ngOnInit(): void {
-    this.loggedIn = localStorage.getItem('loggedIn');
+    this.isLoggedIn = localStorage.getItem('loggedIn');
     console.log('inside oninit');
     let contentsToDisplay: any = [];
     // this.bgevService.getUserDetails().subscribe({

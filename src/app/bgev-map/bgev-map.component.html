@@ -26,7 +26,7 @@
                         </mat-card-content>
                     </mat-card> -->
                         <mat-card class="example-card" id="A{{ind}}"
-                            *ngFor="let slideContent of slideContents; let ind = index" (click)="openDialog()">
+                            *ngFor="let slideContent of slideContents; let ind = index" (click)="openDialog(ind)">
                             <mat-card-header>
                                 <div mat-card-avatar class="example-header-image"></div>
                                 <mat-card-title>{{slideContent.owner}}</mat-card-title>

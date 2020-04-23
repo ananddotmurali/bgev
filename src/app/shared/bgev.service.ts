@@ -24,7 +24,8 @@ export class BgEvService {
     }
 
     changeData(data: any) {
-    this.dataSource.next(data);
+        //console.log(data);
+        this.dataSource.next(data);
   }
 
     private handleError(err: HttpErrorResponse) {

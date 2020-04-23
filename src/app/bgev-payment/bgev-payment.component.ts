@@ -26,11 +26,17 @@ export class BgEvPaymentComponent implements OnInit {
         { item: 'Donations', value: this.currencyPipe.transform(0, 'GBP') },
     ];
     loadComplete= false;
+    isLoggedIn: string;
 
     constructor(private router: Router, private currencyPipe: CurrencyPipe) { }
 
     ngOnInit() {
         this.loginType = localStorage.getItem('loginType');
+        this.isLoggedIn = localStorage.getItem('loggedIn');
+        if(this.isLoggedIn=='no')
+        {
+            this.router.navigate(['./home']);
+        }
         setTimeout(() => {
             this.loadComplete = true;
         }, 10000)
