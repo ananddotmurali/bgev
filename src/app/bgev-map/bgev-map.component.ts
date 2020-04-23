@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 // import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
 import { BgEvService } from '../shared/bgev.service';
-import { RequestDialogBoxComponent } from './request-dialog-box.component';
+
 import { MatDialog } from '@angular/material/dialog';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { BgEvMapOverviewComponent } from '../bgev-map-overview/bgev-map-overview.component';

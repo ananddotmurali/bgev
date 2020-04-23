@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BgEvConfigService } from '../bgev-config-service/bgev-config-service';
+import { MatDialog } from '@angular/material/dialog';
+import { RequestDialogBoxComponent } from '../bgev-request-page/request-dialog-box.component';
 
 
 @Component({
@@ -19,7 +21,7 @@ export class BgEvRequestPageComponent implements OnInit{
     amenities: any = [];
     rating: number = 0;
     availability: number = 0;
-    constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService) {
+    constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService, public dialog: MatDialog,) {
         this.loginType = localStorage.getItem('loginType');
         this.isLoggedIn = localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') === 'yes';        
     }
@@ -42,7 +44,8 @@ export class BgEvRequestPageComponent implements OnInit{
 
     requested() {
         if(this.isLoggedIn) {
-            this.router.navigate(['./payment']);
+            this.openDialog();
+            // this.router.navigate(['./payment']);
         } else {
             this.configService.setCurrentTab('Login');
             this._snackBar.open('Please Login to request.', '', {
@@ -50,6 +53,12 @@ export class BgEvRequestPageComponent implements OnInit{
             });
             this.router.navigate(['./payment']);
         }       
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
+            width: '400px'
+        });
     }
 
 }
