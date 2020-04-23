@@ -21,7 +21,7 @@ export class BgEvRequestPageComponent implements OnInit{
     amenities: any = [];
     rating: number = 0;
     availability: number = 0;
-    constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService, public dialog: MatDialog,) {
+    constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService, public dialog: MatDialog) {
         this.loginType = localStorage.getItem('loginType');
         this.isLoggedIn = localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') === 'yes';        
     }
