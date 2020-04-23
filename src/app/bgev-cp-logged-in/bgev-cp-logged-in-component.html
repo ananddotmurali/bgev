@@ -19,8 +19,8 @@
                   <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging"><strong>Charging...</strong></p>
                   <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Charging Completed</strong></p>
                   <mat-action-list *ngIf="!request.isAccepted">
-                    <button mat-icon-button color="primary" (click)="requestHandler('Accepted', indx)"><mat-icon>done</mat-icon></button>
-                    <button mat-icon-button color="warn" (click)="requestHandler('Rejected', indx)"><mat-icon>clear</mat-icon></button>
+                    <button mat-icon-button color="primary" (click)="openDialog('Accepted', indx)"><mat-icon>done</mat-icon></button>
+                    <button mat-icon-button color="warn" (click)="openDialog('Rejected', indx)"><mat-icon>clear</mat-icon></button>
                   </mat-action-list>
                   <mat-action-list *ngIf="request.isAccepted && request.chargeComplete">
                     <button mat-icon-button (click)="receipt()"><mat-icon>receipt</mat-icon></button>

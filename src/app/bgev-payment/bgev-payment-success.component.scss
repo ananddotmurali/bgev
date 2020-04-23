@@ -1,21 +1,27 @@
 .done_card {
-    margin: 18% 0;  
-  }
-  
-  .done_icon {
-    margin: 0 32%;
-    & > mat-icon {
-      font-size: 130px;
-    }
-  }
-  
-  .done-message {
-    margin-top: 5%;
-    font-size: 20px;
-    text-align: center;
-  }
+  margin: 18% 0;  
+}
 
-  .payment-success {
-    margin-top: 50%;
-    margin-bottom: 50%;
+.done_icon {
+  margin: 0 32%;
+  & > mat-icon {
+    font-size: 130px;
   }
+}
+
+.done-message {
+  margin-top: 5%;
+  font-size: 20px;
+  text-align: center;
+}
+
+.payment-success {
+  margin-top: 50%;
+  margin-bottom: 50%;
+  
+}
+
+.action-button{
+  padding-top: 18px;
+  text-align: center;
+}

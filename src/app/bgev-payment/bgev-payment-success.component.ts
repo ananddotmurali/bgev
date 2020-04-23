@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'bgev-payment-success',
@@ -7,5 +8,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 })
 
 export class BgEvPaymentSuccessComponent {
+    constructor(private router: Router) {}
     
+    goHome() {
+        this.router.navigate([`./evloggedin`]);
+    }
 }

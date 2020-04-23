@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AcceptDialogBoxComponent } from './accept-dialog-box.component';
 
 @Component({
     selector: 'bgev-cp-logged-in',
@@ -17,7 +19,7 @@ export class BgEvCpLoggedInComponent implements OnInit{
     color: string ="primary";
     anyOnechecked: boolean = true;
     loadcomplete: boolean;
-    constructor(private router: Router, private _snackBar: MatSnackBar) {
+    constructor(private router: Router, private _snackBar: MatSnackBar, public dialog: MatDialog) {
         this._snackBar.open('Logged in Successfully.', '', {
             duration: 2000
         });
@@ -66,7 +68,6 @@ export class BgEvCpLoggedInComponent implements OnInit{
     }
 
     requestHandler(actionType: any, index: number){
-        console.log(actionType, index); 
         if(actionType == 'Accepted') {
             this.requests[index]['isAccepted'] = true;
             setTimeout(() => {
@@ -83,9 +84,20 @@ export class BgEvCpLoggedInComponent implements OnInit{
          } 
     }
     
-    receipt()
-    {
-        this.router.navigate([`./payment`]);
-        
+    receipt() {
+        this.router.navigate([`./payment`]);            
+    }
+
+    openDialog(actionType: any, index: number) {
+        const dialogRef = this.dialog.open(AcceptDialogBoxComponent, {
+            width: '400px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+            if(result) {
+                this.requestHandler(actionType, index);
+            }
+          });
     }
 }

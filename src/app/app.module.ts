@@ -29,7 +29,8 @@ import { BgEvPaymentSuccessComponent } from './bgev-payment/bgev-payment-success
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BgEvChargingPageComponent } from './bgev-charging-page/bgev-charging-page.component';
 import { CurrencyPipe } from '@angular/common';
-import { RequestDialogBoxComponent } from './bgev-map/request-dialog-box.component';
+import { RequestDialogBoxComponent } from './bgev-request-page/request-dialog-box.component';
+import { AcceptDialogBoxComponent } from './bgev-cp-logged-in/accept-dialog-box.component';
 import { BgEvRequestPageComponent } from './bgev-request-page/bgev-request-page.component';
 
 const appRoutes: Routes = [
@@ -83,9 +84,10 @@ const appRoutes: Routes = [
     BgEvPaymentComponent,
     BgEvRequestPageComponent,
     BgEvPaymentSuccessComponent,
-    RequestDialogBoxComponent
+    RequestDialogBoxComponent,
+    AcceptDialogBoxComponent
   ],
-  entryComponents: [DialogContentComponent, RequestDialogBoxComponent],
+  entryComponents: [DialogContentComponent, RequestDialogBoxComponent, AcceptDialogBoxComponent],
   bootstrap: [AppComponent],
   providers: [BgEvConfigService, CurrencyPipe]
 })
