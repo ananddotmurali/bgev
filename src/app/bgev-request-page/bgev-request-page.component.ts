@@ -31,7 +31,7 @@ export class BgEvRequestPageComponent implements OnInit{
             }
             this.chargePointDetails = data;
             this.amenities = this.configService.getAvailableAmenities();
-            this.rating = Math.floor(Math.random() * 5);
+            this.rating = Math.floor(Math.random() * (5 - 1) + 1);
             this.availability = Math.floor(Math.random() * (100 - 60) + 60);
         });
     }
