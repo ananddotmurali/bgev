@@ -25,14 +25,14 @@
                 <mat-icon matSuffix>contact_mail</mat-icon>
             </mat-form-field>
 
-            <mat-label>Charger Type</mat-label>
+            <mat-label><strong>Charger Type</strong></mat-label>
             <section class="example-section">
                 <mat-checkbox class="example-margin" color="primary">Type 1</mat-checkbox>
                 <mat-checkbox class="example-margin" color="primary">Type 2</mat-checkbox>
                 <mat-checkbox class="example-margin" color="primary">Type 3</mat-checkbox>
             </section>
 
-            <mat-label>Availablity</mat-label>
+            <mat-label><strong>Availablity</strong></mat-label>
 
             <mat-form-field appearance="outline">
                 <mat-label>From</mat-label>
@@ -50,6 +50,15 @@
                 <input matInput placeholder="Price">
                 <mat-icon matSuffix>euro</mat-icon>
             </mat-form-field>
+            <mat-label><strong>Amenities Available</strong></mat-label>
+            <mat-grid-list cols="3" fit>
+                <mat-grid-tile *ngFor="let icon of amenities; let indx = index">
+                    <mat-checkbox color="primary" class="amenity_icon">
+                        
+                      </mat-checkbox>
+                      <div class="amenity_description">{{icon.icon_name}}</div>
+                </mat-grid-tile>
+            </mat-grid-list>
             <div class="login-actions">
                 <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
                 <a mat-raised-button color="primary" routerLink="/home">Back</a>

@@ -44,3 +44,11 @@
         width: 110%;
     }
 }
+
+div.amenity_ {
+    &description {
+     position: absolute;    
+     color: rgba(0,0,0,.75);
+     bottom: 20px;
+   }
+} 
