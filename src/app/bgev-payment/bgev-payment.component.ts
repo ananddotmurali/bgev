@@ -33,8 +33,7 @@ export class BgEvPaymentComponent implements OnInit {
     ngOnInit() {
         this.loginType = localStorage.getItem('loginType');
         this.isLoggedIn = localStorage.getItem('loggedIn');
-        if(this.isLoggedIn=='no')
-        {
+        if(this.isLoggedIn == 'no') {
             this.router.navigate(['./home']);
         }
         setTimeout(() => {

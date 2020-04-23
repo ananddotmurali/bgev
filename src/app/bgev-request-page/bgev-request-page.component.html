@@ -26,14 +26,34 @@
     <table>
         <tr><td><strong>Type</strong></td><td><strong>:</strong></td><td>{{chargePointDetails.typesAvailable}}</td></tr>
         <tr><td><strong>Pricing</strong></td><td><strong>:</strong></td><td>{{chargePointDetails.pricing | currency:"GBP"}}/hr</td></tr>
-    </table>   
-    <mat-progress-spinner mode="determinate" value=70>
-        <h3 class="rating">4</h3>
-    </mat-progress-spinner> 
+    </table>
+    
+    <div class="inner-content text-center">
+        
+    </div>
+
+    <mat-grid-list cols="2" rowHeight="230px">
+        <mat-grid-tile>
+            <h3 class="amenity_description">Rating</h3>
+            <div class="c100 center" [ngClass]="'p'+rating*20">
+                <span>{{rating}} / 5</span>
+                <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h3 class="amenity_description">Availability</h3>
+            <div class="c100 center" [ngClass]="'p'+availability">
+                <span>{{availability}}%</span>
+                <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+   
+
 </mat-card-content>
 </mat-card>
 
-<mat-card class="example-card" *ngIf="amenities">
+<mat-card class="example-card" *ngIf="amenities.length > 0">
     <mat-card-header>
         <h3>Amenties</h3>
     </mat-card-header>

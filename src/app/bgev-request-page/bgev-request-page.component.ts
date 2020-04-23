@@ -17,21 +17,22 @@ export class BgEvRequestPageComponent implements OnInit{
     loginType: string;
     isLoggedIn: boolean;
     amenities: any = [];
+    rating: number = 0;
+    availability: number = 0;
     constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService) {
         this.loginType = localStorage.getItem('loginType');
         this.isLoggedIn = localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') === 'yes';        
     }
     ngOnInit(): void {
         this.bgevservice.currentData.subscribe(data => {
-            console.log('data++++++++');
-            console.log(data);
             if(data.length === 0) {
                 this.router.navigate(['./home']);
                 return false;
             }
             this.chargePointDetails = data;
             this.amenities = this.configService.getAvailableAmenities();
-
+            this.rating = Math.floor(Math.random() * 5);
+            this.availability = Math.floor(Math.random() * (100 - 60) + 60);
         });
     }
 
@@ -41,7 +42,7 @@ export class BgEvRequestPageComponent implements OnInit{
 
     requested() {
         if(this.isLoggedIn) {
-            this.router.navigate(['./payemnt']);
+            this.router.navigate(['./payment']);
         } else {
             this._snackBar.open('Please Login to request.', '', {
                 duration: 2000
