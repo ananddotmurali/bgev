@@ -16,8 +16,9 @@
         <mat-list *ngIf="requests.length > 0">
           <mat-list-item *ngFor="let request of requests; let indx = index">
             <mat-icon matListIcon>how_to_reg</mat-icon>
-            <h3 matLine> <strong>Name:</strong> {{request.name}} </h3>
-            <p matLine> <strong>Type:</strong> {{request.type}} </p>
+            <!-- <h3 matLine> <strong>Name:</strong> {{request.name}} </h3> -->
+            <!-- <p matLine> <strong>Type:</strong> {{request.type}} </p> -->
+            <h3 matLine> <strong>Location:</strong> {{request.location}} </h3>
             <p matLine class="demo-2"> <strong>Date: </strong> {{request.date}} </p>
             <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging">
               <strong>Charging...</strong></p>

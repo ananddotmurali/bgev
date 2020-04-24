@@ -33,3 +33,6 @@ tr.mat-footer-row {
     color: blue;
 }
 
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }

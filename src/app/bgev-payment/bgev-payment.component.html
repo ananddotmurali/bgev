@@ -32,6 +32,29 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
                 </table>
+                <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <strong>Payment Method</strong>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+                    <mat-form-field>
+                      <mat-label>Name on Card</mat-label>
+                      <input matInput>
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                      <mat-label>Credit/Debit Card Number</mat-label>
+                      <input matInput type="number" maxlength="16">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Expiry Date</mat-label>
+                        <input matInput type="string" placeholder="MM/YY" maxlength="5">
+                      </mat-form-field>
+                  </mat-expansion-panel>
+                </mat-accordion>
             </mat-card-content>
             <mat-card-actions class="pay-button" *ngIf="loginType != 'cp'">
                 <a mat-raised-button color="primary" (click)="paymentSuccess()">Pay</a>

@@ -13,11 +13,14 @@ export class BgEvEvLoggedInComponent implements OnInit {
     }
     noOfReq = 0;
     requests = [];
+    locations = ["North Yorkshire", "Ashbourne","Cumbriya","Bradford","Shipley","Denstone","Combridge","Penrith","Carlisle","Baslow"]
+    ownerName: string;
     ngOnInit() {
         localStorage.setItem('loginType', 'ev');
         localStorage.setItem('loggedIn', 'yes');
         this.noOfReq = this.generateRandomNumber(0, 10);
         this.generateRandData();
+        
     }
 
     constructor(private router: Router, private _snackBar: MatSnackBar) {
@@ -42,6 +45,8 @@ export class BgEvEvLoggedInComponent implements OnInit {
         return `${mm}/${dd}/${yyyy}`;
     }
 
+    
+
     generateRandData() {
         let currDay = new Date();
         let nextDay = new Date(currDay.getTime() + 86400000);
@@ -50,6 +55,7 @@ export class BgEvEvLoggedInComponent implements OnInit {
         for (let i = 0; i < this.noOfReq; i++) {
             iteratorObj = {};
             iteratorObj['name'] = `User ${i + 1}`;
+            iteratorObj['location'] = this.locations[i];
             iteratorObj['type'] = this.generateRandomNumber(1, 3);
             iteratorObj['date'] = this.randomDate(currDay, nextDay);
             iteratorObj['time'] = '10: 00 - 10: 00';

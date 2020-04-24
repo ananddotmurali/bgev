@@ -19,6 +19,7 @@ export class BgEvCpLoggedInComponent implements OnInit{
     color: string ="primary";
     anyOnechecked: boolean = true;
     loadcomplete: boolean;
+    ownerName: string;
     constructor(private router: Router, private _snackBar: MatSnackBar, public dialog: MatDialog) {
         this._snackBar.open('Logged in Successfully.', '', {
             duration: 2000
@@ -27,13 +28,19 @@ export class BgEvCpLoggedInComponent implements OnInit{
 
     ngOnInit() {
         localStorage.setItem('loginType', 'cp');
+        localStorage.setItem('name','Gomathi');
         this.loadcomplete = true;
         this.noOfReq = this.generateRandomNumber(0, 10);
         this.generateRandData();        
+        this.cpOwnerName();
     }
 
     generateRandomNumber(from, to) {
         return Math.floor(Math.random() * to) + from  
+    }
+
+    cpOwnerName (){
+        this.ownerName=localStorage.getItem('name');
     }
 
     randomDate(start:Date, end: Date) {

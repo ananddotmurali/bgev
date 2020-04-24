@@ -32,6 +32,7 @@ import { CurrencyPipe } from '@angular/common';
 import { RequestDialogBoxComponent } from './bgev-request-page/request-dialog-box.component';
 import { AcceptDialogBoxComponent } from './bgev-cp-logged-in/accept-dialog-box.component';
 import { BgEvRequestPageComponent } from './bgev-request-page/bgev-request-page.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const appRoutes: Routes = [
   { path: 'home', component: BgEvIntroPageComponent },
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     NgxMatDatetimePickerModule,
     MatMomentDateModule,
     MatRippleModule,
+    MatExpansionModule,
     MatProgressSpinnerModule,
     RouterModule.forRoot(
       appRoutes

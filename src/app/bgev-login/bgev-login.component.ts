@@ -15,10 +15,11 @@ export class BgEvLoginComponent {
     constructor(private router: Router) {}
 
     login(login_id: string) {
-        let owner = login_id.substring(0, 2);
-        if(owner == 'cp'){
+        let owner = login_id.substring(0, 7);
+        if(owner == 'gomathi'){
             this.router.navigate([`./cploggedin`]);
-        } else if(owner == 'ev'){
+        } else if(owner == 'swaroop'){
+            console.log(owner);
             this.router.navigate([`./evloggedin`]);
         } else {
             return false;

@@ -1,7 +1,7 @@
 <!-- Material Tab -->
   <mat-card>
     <mat-card-content>
-      <h2 class="example-h2">Welcome {{user.name}}</h2>
+      <h2 class="example-h2">Welcome {{ownerName}}</h2>
       <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
         <mat-tab>
             <ng-template mat-tab-label>
@@ -16,8 +16,8 @@
                   <h3 matLine> <strong>Name:</strong> {{request.name}} </h3>
                   <p matLine> <strong>Type:</strong> {{request.type}} </p>
                   <p matLine class="demo-2"> <strong>Date: </strong> {{request.date}} </p>
-                  <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging"><strong>Charging...</strong></p>
-                  <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Charging Completed</strong></p>
+                  <!-- <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging"><strong>Charging...</strong></p> -->
+                  <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Booking Completed</strong></p>
                   <mat-action-list *ngIf="!request.isAccepted">
                     <button mat-icon-button color="primary" (click)="openDialog('Accepted', indx)"><mat-icon>done</mat-icon></button>
                     <button mat-icon-button color="warn" (click)="openDialog('Rejected', indx)"><mat-icon>clear</mat-icon></button>
