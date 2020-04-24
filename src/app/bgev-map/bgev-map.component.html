@@ -30,7 +30,7 @@
                             <mat-card-header>
                                 <div mat-card-avatar class="example-header-image"></div>
                                 <mat-card-title>{{slideContent.owner}}</mat-card-title>
-                                <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/hour</mat-card-subtitle>
+                                <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/kWh</mat-card-subtitle>
                             </mat-card-header>
 
                             <mat-card-content id={{$index}} (scroll)="onChange($index)">
