@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -9,18 +9,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BgCpOwnerComponent implements OnInit {
     loadComplete = false;
-    
+    amenities = [{'icon_name': 'Store', 'icon': 'shopping_cart'},
+    {'icon_name': 'Cafe', 'icon': 'local_cafe'},
+    {'icon_name': 'Hospital', 'icon': 'local_hospital'},
+    {'icon_name': 'Restaurant', 'icon': 'local_dining'},
+    {'icon_name': 'Parking', 'icon': 'local_parking'},
+    {'icon_name': 'Rest Room', 'icon': 'wc'},
+    {'icon_name': 'Children Area', 'icon': 'child_care'},
+    {'icon_name': 'Car Wash', 'icon': 'local_car_wash'},
+    {'icon_name': 'Car Service', 'icon': 'build'},
+    {'icon_name': 'ATM', 'icon': 'atm'}];
+
+    containers = [1];
+
+    @ViewChild('dynamic', {
+        read: ViewContainerRef
+      }) viewContainerRef: ViewContainerRef
+
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
-    amenities= [{"icon_name":"Store","icon":"shopping_cart"},
-    {"icon_name":"Cafe","icon":"local_cafe"},
-    {"icon_name":"Hospital","icon":"local_hospital"},
-    {"icon_name":"Restaurant","icon":"local_dining"},
-    {"icon_name":"Parking","icon":"local_parking"},
-    {"icon_name":"Rest Room","icon":"wc"},
-    {"icon_name":"Children Area","icon":"child_care"},
-    {"icon_name":"Car Wash","icon":"local_car_wash"},
-    {"icon_name":"Car Service","icon":"build"},
-    {"icon_name":"ATM","icon":"atm"}];
     registeredUser() {
         this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
             duration: 3000
@@ -32,5 +38,8 @@ export class BgCpOwnerComponent implements OnInit {
         setTimeout(() => {
             this.loadComplete = true;
         }, 2500)
-    }    
+    }
+    addConnector() {
+        this.containers.push(this.containers.length + 1)
+    }
 }

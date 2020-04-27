@@ -25,6 +25,25 @@
                 <mat-icon matSuffix>contact_mail</mat-icon>
             </mat-form-field>
         </div>
+        <div class="example-container">
+            <h4>Payment Method</h4>
+            <mat-divider></mat-divider>
+
+            <mat-form-field>
+                <mat-label>Name on Card</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Credit/Debit Card Number</mat-label>
+                <input matInput type="number" maxlength="16">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Expiry Date</mat-label>
+                <input matInput type="string" placeholder="MM/YY" maxlength="5">
+            </mat-form-field>
+
+        </div>
         <div class="login-actions">
             <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
             <a mat-raised-button color="primary" routerLink="/home">Back</a>

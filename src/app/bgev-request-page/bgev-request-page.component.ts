@@ -19,22 +19,27 @@ export class BgEvRequestPageComponent implements OnInit{
     loginType: string;
     isLoggedIn: boolean;
     amenities: any = [];
-    rating: number = 0;
-    availability: number = 0;
-    constructor(private bgevservice: BgEvService, private router: Router, private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService, public dialog: MatDialog) {
+    rating = 0;
+    utilization = 0;
+    chargerType = 'CCA';
+    price = '20';
+    constructor(private bgevservice: BgEvService, private router: Router,
+        private location: Location, private _snackBar: MatSnackBar, private configService: BgEvConfigService, public dialog: MatDialog) {
         this.loginType = localStorage.getItem('loginType');
-        this.isLoggedIn = localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') === 'yes';        
+        this.isLoggedIn = localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') === 'yes';
     }
     ngOnInit(): void {
         this.bgevservice.currentData.subscribe(data => {
-            if(data.length === 0) {
+            if (data.length === 0) {
                 this.router.navigate(['./home']);
                 return false;
             }
             this.chargePointDetails = data;
+            this.chargerType = localStorage.getItem('chargerType')
+            this.price = localStorage.getItem('price')
             this.amenities = this.configService.getAvailableAmenities();
             this.rating = Math.floor(Math.random() * (5 - 1) + 1);
-            this.availability = Math.floor(Math.random() * (100 - 60) + 60);
+            this.utilization = Math.floor(Math.random() * (10 - 1) + 1);
         });
     }
 

@@ -24,16 +24,22 @@
                 <input matInput placeholder="Email">
                 <mat-icon matSuffix>contact_mail</mat-icon>
             </mat-form-field>
-
-            <mat-label><strong>Charger Type</strong></mat-label>
+        </div>
+        <div class="example-container" *ngFor = "let container of containers" >
+            <mat-label><strong>Connector Type</strong></mat-label>
             <section class="example-section">
-                <mat-checkbox class="example-margin" color="primary">Type 1</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary">Type 2</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary">Type 3</mat-checkbox>
+                <mat-radio-button class="example-margin" color="primary">CHAdeMo</mat-radio-button>
+                <mat-radio-button class="example-margin" color="primary">CCS</mat-radio-button>
+                <mat-radio-button class="example-margin" color="primary">Tesla Type 2</mat-radio-button>
+            </section>
+
+            <mat-label><strong>Current type</strong></mat-label>
+            <section class="example-section">
+                <mat-radio-button class="example-margin" color="primary">AC</mat-radio-button>
+                <mat-radio-button class="example-margin" color="primary">DC</mat-radio-button>
             </section>
 
             <mat-label><strong>Availablity</strong></mat-label>
-
             <mat-form-field appearance="outline">
                 <mat-label>From</mat-label>
                 <input matInput placeholder="From">
@@ -50,13 +56,25 @@
                 <input matInput placeholder="Price">
                 <mat-icon matSuffix>euro</mat-icon>
             </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Rated Power</mat-label>
+                <input matInput placeholder="kW">
+            </mat-form-field>
+            
+        </div>
+        <div>
+            <mat-label><strong>Would you like to add another connector?</strong></mat-label>
+            <mat-icon matSuffix style="vertical-align: middle;" (click) = "addConnector()">add_circle</mat-icon>
+        </div>
+        <div class="example-container">
             <mat-label><strong>Amenities Available</strong></mat-label>
             <mat-grid-list cols="3" fit>
                 <mat-grid-tile *ngFor="let icon of amenities; let indx = index">
                     <mat-checkbox color="primary" class="amenity_icon">
-                        
-                      </mat-checkbox>
-                      <div class="amenity_description">{{icon.icon_name}}</div>
+
+                    </mat-checkbox>
+                    <div class="amenity_description">{{icon.icon_name}}</div>
                 </mat-grid-tile>
             </mat-grid-list>
             <div class="login-actions">

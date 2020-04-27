@@ -26,33 +26,35 @@
                         </mat-card-content>
                     </mat-card> -->
                         <mat-card class="example-card" id="A{{ind}}"
-                            *ngFor="let slideContent of slideContents; let ind = index" (click)="openDialog(ind)">
+                            *ngFor="let slideContent of slideContents; let ind = index">
                             <mat-card-header>
                                 <div mat-card-avatar class="example-header-image"></div>
                                 <mat-card-title>{{slideContent.owner}}</mat-card-title>
-                                <mat-card-subtitle>{{slideContent.pricing | currency:"GBP"}}/kWh</mat-card-subtitle>
+                                <mat-card-subtitle>{{price}}p/kWh</mat-card-subtitle>
                             </mat-card-header>
 
-                            <mat-card-content id={{$index}} (scroll)="onChange($index)">
-                                <table>
-                                    <tr>
-                                        <td><strong>Place</strong></td>
-                                        <td><strong>:</strong></td>
-                                        <td>{{slideContent.place}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong> Types Available</strong></td>
-                                        <td><strong>:</strong></td>
-                                        <td>{{slideContent.typesAvailable}}</td>
-                                    </tr>
-                                </table>
+                            <mat-card-content id={{$index}} (scroll)="onChange($index)" style="text-align: center;">
+                                <div class="example-container">
+                                    <mat-label>{{slideContent.place}}</mat-label>
+                                    
+                                    <mat-select [(ngModel)]="charger" name="connectorType" (selectionChange) = "selectType(charger)"
+                                        placeholder="Select a Connector" >
+                                        <mat-option *ngFor="let charger of slideContent.typesAvailable"
+                                            [value]="charger">
+                                            {{charger}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <button mat-button color="primary">
+                                        <mat-icon style="vertical-align: middle;" (click) = "openDialog(charger, ind)">done</mat-icon>
+                                    </button>
+                                    
 
-
+                                </div>
                             </mat-card-content>
                         </mat-card>
 
                     </div>
-                    <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+                    <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& (click)=""-->
                 </div>
             </div>
 

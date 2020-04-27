@@ -15,17 +15,22 @@ export interface Transaction {
 
 export class BgEvPaymentComponent implements OnInit {
     loginType: string;
-    totalAmnt = this.generateRandomNumber(10, 90);
+    duration = this.generateRandomNumber(1, 5);
+    consumption = this.generateRandomNumber(20, 50);
+    unitPrice = this.generateRandomNumber(10, 20);
+    chargingCost = (this.consumption * this.unitPrice * this.duration) / 100;
+    tax = this.chargingCost * 20 / 100;
+    totalAmount = this.chargingCost + this.tax;
     displayedColumns: string[] = ['item', 'value'];
     transactions: Transaction[] = [
-        { item: 'Consumption', value: this.generateRandomNumber(20, 50) + ' kWh' },
-        { item: 'Duration', value: this.generateRandomNumber(1, 3) + ' hr' },
-        { item: 'Discounts', value: this.currencyPipe.transform(0, 'GBP') },
-        { item: 'Tariff', value: this.currencyPipe.transform(this.generateRandomNumber(1, 5), 'GBP') + '/hr' },
-        { item: 'Misc', value: this.currencyPipe.transform(0, 'GBP') },
-        { item: 'Donations', value: this.currencyPipe.transform(0, 'GBP') },
+        { item: 'Consumption', value: `${this.consumption} kWh` },
+        { item: 'Duration', value: `${this.duration} hours` },
+        { item: 'Unit price', value: `${this.unitPrice}p per kWH` },
+        { item: 'Consumption Cost', value: this.currencyPipe.transform(this.chargingCost, 'GBP') },
+        { item: 'Tax', value: this.currencyPipe.transform(this.tax, 'GBP')},
+        { item: 'Discount', value: this.currencyPipe.transform(0, 'GBP') },
     ];
-    loadComplete= false;
+    loadComplete = false;
     isLoggedIn: string;
 
     constructor(private router: Router, private currencyPipe: CurrencyPipe) { }
@@ -49,7 +54,4 @@ export class BgEvPaymentComponent implements OnInit {
         this.router.navigate([`./payment-success`]);
     }
 
-    getTotalCost() {
-        return this.totalAmnt;
-    }
 }

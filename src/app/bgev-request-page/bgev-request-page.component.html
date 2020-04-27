@@ -24,8 +24,10 @@
       </mat-card-header>
   <mat-card-content>
     <table>
-        <tr><td><strong>Type</strong></td><td><strong>:</strong></td><td>{{chargePointDetails.typesAvailable}}</td></tr>
-        <tr><td><strong>Pricing</strong></td><td><strong>:</strong></td><td>{{chargePointDetails.pricing | currency:"GBP"}}/kWh</td></tr>
+        <tr><td><strong>Connector Type</strong></td><td><strong>:</strong></td><td>{{chargerType}}</td></tr>
+        <tr><td><strong>Pricing</strong></td><td><strong>:</strong></td><td>{{price}}p/kWh</td></tr>
+        <tr><td><strong>Rated Power</strong></td><td><strong>:</strong></td><td>150 kW</td></tr>
+        <tr><td><strong>Current Type</strong></td><td><strong>:</strong></td><td>DC</td></tr>
     </table>
 
     <div class="inner-content text-center"></div>
@@ -39,9 +41,9 @@
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
-            <h3 class="amenity_description">Availability</h3>
-            <div class="c100 center" [ngClass]="'p'+availability">
-                <span>{{availability}}%</span>
+            <h3 class="amenity_description">No. of users</h3>
+            <div class="c100 center" [ngClass]="'p'+utilization">
+                <span>{{utilization}}</span>
                 <div class="slice"><div class="bar"></div><div class="fill"></div></div>
             </div>
         </mat-grid-tile>
