@@ -1,19 +1,34 @@
-import { Component } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { Component, OnInit } from '@angular/core';
+import {MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { BgevMapService } from '../shared/bgev-map-service'
 
 @Component({
     selector: 'bgev-map-overview',
     templateUrl: 'bgev-map-overview.component.html',
     styleUrls: ['bgev-map-overview.component.scss']
 })
-export class BgEvMapOverviewComponent {
+export class BgEvMapOverviewComponent implements OnInit {
 isSelectedAll = false;
 chargerTypes = [
-    { typeId: '1', selected: false },
-    { typeId: '2', selected: false },
-    { typeId: '3', selected: false },
+    { type: 'CHAdeMO', selected: false },
+    { type: 'CCS', selected: false },
+    { type: 'Untethered', selected: false },
+    { type: 'Tesla Type 2', selected: false },
 ];
-constructor(private _bottomSheetRef: MatBottomSheetRef<BgEvMapOverviewComponent>) {}
+location;
+latitude;
+longitude;
+ngOnInit() {
+    const coords = new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition(( position ) => {
+        resolve(position.coords)
+
+    })
+    })
+    this.getlocation(coords)
+}
+constructor(private _bottomSheetRef: MatBottomSheetRef<BgEvMapOverviewComponent>,
+    private mapService: BgevMapService) {}
     openLink(event: MouseEvent): void {
         // this._bottomSheetRef.dismiss();
         event.preventDefault();
@@ -37,4 +52,19 @@ constructor(private _bottomSheetRef: MatBottomSheetRef<BgEvMapOverviewComponent>
             return item.selected == true;
           })
     }
+
+    async getlocation(coords) {
+        const coordinates = await coords;
+        const response  = await this.mapService.getAddressFromLatLng(`${coordinates.latitude}, ${coordinates.longitude}`);
+        this.location = response[0].Location.Address.Label;
+    }
+
+    async getAddress(value) {
+        if (value.length > 3) {
+            const response  = await this.mapService.getAddress(value);
+            this.location = response[0].Location.Address.Label;
+        }
+
+    }
+
 }

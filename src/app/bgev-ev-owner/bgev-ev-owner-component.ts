@@ -14,7 +14,7 @@ export class BgEvOwnerComponent implements OnInit {
         this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
             duration: 3000
         });
-        this.router.navigate(['home']);
+        this.router.navigate(['Login']);
     }
 
     ngOnInit() {

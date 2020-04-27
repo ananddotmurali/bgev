@@ -7,9 +7,21 @@ import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-shee
 import { BgEvMapOverviewComponent } from '../bgev-map-overview/bgev-map-overview.component';
 import { BgEvConfigService } from 'app/bgev-config-service/bgev-config-service';
 import { Router } from '@angular/router';
+import { BgevMapService } from 'app/shared/bgev-map-service';
 
 
 declare var H: any;
+
+export interface Content {
+  id: number;
+  place: string;
+  lat: number;
+  lng: number;
+  pricing: number;
+  owner: string;
+  availablity: string;
+  typesAvailable: []
+}
 @Component({
   selector: 'bgev-map',
   templateUrl: './bgev-map.component.html',
@@ -25,49 +37,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   icon = new H.map.Icon('assets/imgs/charge2.png', { size: { w: 30, h: 30 } });
   marker: any;
   bubble: any;
-  slideContents = [
-    {
-      "id": 1,
-      "place": "Ashbourne",
-      lat: 52.96395945,
-      lng: -1.784346,
-      "pricing": 26,
-      "owner": "Michael Clarke",
-      "availablity": "Yes",
-      "typesAvailable": ["2"],
-      "rating": 4
-    },
-    {
-      "id": 2,
-      "place": "DE45",
-      lat: 53.25943673,
-      lng: -1.60289329,
-      "pricing": 25,
-      "owner": "Gibbs",
-      "availablity": "Yes",
-      "typesAvailable": ["1", "3"]
-    },
-    {
-      "id": 3,
-      "place": "Cumbria",
-      lat: 54.57994555,
-      lng: -2.71015136,
-      "pricing": 27,
-      "owner": "Mcarthur",
-      "availablity": "Yes",
-      "typesAvailable": ["1", "2"]
-    },
-    {
-      "id": 4,
-      "place": "Bradford",
-      lat: 53.82501878,
-      lng: -1.74335666,
-      "pricing": 24,
-      "owner": "Luke Wright",
-      "availablity": "Yes",
-      "typesAvailable": ["3"]
-    }
-  ]
+  slideContents = []
   slideLen: 0;
   errorMessage: any;
   //////////////////////////////////////////////
@@ -79,8 +49,16 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   elementIndices = {};
   loggedIn: string;
   isLoggedIn: string;
+  price: string;
+  connector = ['CCA', 'CHAdeMO', 'TeslaType2', 'Untethered'];
+  CCA = [18, 22, 25];
+  CHAdeMO = [18];
+  TeslaType2 = [24];
+  Untethered = [15, 17];
+
   constructor(private bgevService: BgEvService, public dialog: MatDialog, 
-    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService,private router: Router) {
+    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService,private router: Router,
+    private mapService: BgevMapService) {
     this.intersectionObserver = null;
     this.platform = new H.service.Platform({
       apikey: 'Y_bhbqaJHZK-B-xpbBxIA1CavyvZ-sheohUgOqphVu8'
@@ -124,7 +102,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
         return (entry.intersectionRatio > max.intersectionRatio) ? entry : max;
       });
       if (activated.intersectionRatio > 0) {
-        this.currentIndex = this.elementIndices[activated.target.getAttribute("id")];
+        this.currentIndex = this.elementIndices[activated.target.getAttribute('id')];
 
         // this.renderIndicator();
       }
@@ -148,7 +126,7 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   addObserver() {
     console.log(this.elements);
     for (let i = 0; i < this.elements.length; i++) {
-      this.elementIndices[this.elements[i].getAttribute("id")] = i;
+      this.elementIndices[this.elements[i].getAttribute('id')] = i;
       this.intersectionObserver.observe(this.elements[i]);
     }
   }
@@ -196,14 +174,10 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   }
 
   onChange(index: number) {
-    console.log(index);
     let currCity = this.slideContents[index];
     let { lat, lng } = currCity;
-    // this.mapGroup.removeObject(this.marker);
-    // this.marker = new H.map.Marker({lat, lng}, {icon: this.icon});
     this.map.setCenter({ lat, lng });
     this.map.setZoom(12);
-    // this.mapGroup.addObject(this.marker);
   }
   getColor(obj: any) {
     return (obj.availablity) ? 'rgba(0, 200, 0, 0.8)' : 'rgba(200, 0, 0, 0.8)';
@@ -212,51 +186,28 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   showSearch() {
     this._bottomSheet.open(BgEvMapOverviewComponent);
   }
-  // activeLink = this.configService.getCurrentTab();
-  openDialog(index: number) {
-      // if(this.isLoggedIn=="no"){
-        // const dialogRef = this.dialog.open(RequestDialogBoxComponent, {
-        //   width: '400px'
-        // });
-    // }
-    // else{
-        // console.log(this.slideContents[index]);
+  openDialog(chargerType: string, index: number) {
         this.bgevService.changeData(this.slideContents[index]);
+        localStorage.setItem('chargerType', chargerType);
+        localStorage.setItem('price', this[chargerType][0]);
         this.router.navigate(['./request-page']);
-    // }
-    
+  }
+
+  selectType(chargerType: string) {
+    this.price = this[chargerType][0];
   }
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem('loggedIn');
     console.log('inside oninit');
-    let contentsToDisplay: any = [];
-    // this.bgevService.getUserDetails().subscribe({
-    //     next: contents => {
-    //       this.bgevService.currentData.subscribe(data =>{ 
-    //         this.selectedChargerTypes = data;
-    //       });        
-    //       this.slideContents = contents;
-    //       this.selectedChargerTypes.find(selectedType => {
-    //         this.slideContents.forEach(user => {
-    //           if(user.typesAvailable.includes(selectedType)){
-    //             contentsToDisplay.push(user);
-    //           } 
-    //         });
-    //         for(let i=0;i<contentsToDisplay.length;i++){
-    //           if(this.filteredSlideContents.indexOf(contentsToDisplay[i]) === -1) {
-    //             this.filteredSlideContents.push(contentsToDisplay[i]);
-    //           }
-    //         } 
-    //         console.log("Charger Types:====>",this.filteredSlideContents); 
-    //         console.log("slidecontents: ",this.slideContents);
-    //       })
-    //       this.carousel = document.querySelector('.carousel');
-    //       this.elements = document.querySelectorAll('.carousel > *');
-    //       this.addObserver();          
-    //     },
-    //     error: err => this.errorMessage = err
-    // });
+    const coords = new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(( position ) => {
+      resolve(position.coords)
+
+    })
+  })
+  this.getChargepoints(coords);
+
   }
 
   startClustering(/* data: any */) {
@@ -272,5 +223,31 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
     });
     let clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider);
     this.map.addLayer(clusteringLayer);
+  }
+
+  async getChargepoints(coords) {
+    const coordinates = await coords;
+    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar']
+
+    for (let count = 0; count < 5; count ++) {
+      const lat = coordinates.latitude + (count * 0.05);
+      const response  = await this.mapService.getAddressFromLatLng(`${lat},
+                ${coordinates.longitude}`);
+      const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
+      (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
+      const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
+      const content = {
+        id: count,
+        availablity: 'Yes',
+        lat: lat,
+        lng: coordinates.longitude,
+        owner: owner[count],
+        place: response[0].Location.Address.Label,
+        pricing: price[0],
+        typesAvailable: connectorType.filter(conn => conn !== undefined)
+
+      } as Content
+      this.slideContents.push(content);
+    }
   }
 }

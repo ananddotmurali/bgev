@@ -13,11 +13,14 @@
               <mat-list *ngIf="requests.length > 0">
                 <mat-list-item *ngFor="let request of requests; let indx = index">
                   <mat-icon matListIcon>how_to_reg</mat-icon>
-                  <h3 matLine> <strong>Name:</strong> {{request.name}} </h3>
-                  <p matLine> <strong>Type:</strong> {{request.type}} </p>
-                  <p matLine class="demo-2"> <strong>Date: </strong> {{request.date}} </p>
+                  <h3 matLine> {{request.name}} </h3>
+                  <p matLine class="demo-2"> {{request.date}} </p>
+                  <p matLine class="demo-2"> {{request.duration}} </p>
                   <!-- <p matLine *ngIf="request.isAccepted && !request.chargeComplete" class="charging"><strong>Charging...</strong></p> -->
-                  <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Booking Completed</strong></p>
+                    <p matLine *ngIf="request.chargeComplete" class="charging-completed"><strong>Booking Accepted</strong></p>                    
+                    <button *ngIf="request.chargeComplete" mat-icon-button color="warn" (click)="openDialog('Rejected', indx)"><mat-icon>clear</mat-icon></button>
+    
+                 
                   <mat-action-list *ngIf="!request.isAccepted">
                     <button mat-icon-button color="primary" (click)="openDialog('Accepted', indx)"><mat-icon>done</mat-icon></button>
                     <button mat-icon-button color="warn" (click)="openDialog('Rejected', indx)"><mat-icon>clear</mat-icon></button>
@@ -45,7 +48,7 @@
             <div class="container">
               <mat-card class="availability-card">
                   <mat-card-header>    
-                      <h4>Type 1</h4>
+                      <h4>CCS</h4>
                   </mat-card-header>
                   <mat-card-content>
                       <mat-grid-list cols="1" rowHeight="100px">
@@ -58,8 +61,8 @@
                           </mat-grid-tile>
                           <mat-grid-tile>
                               <mat-form-field appearance="outline" class="text-full-width">
-                                  <mat-label>Price/Unit</mat-label>
-                                  <input matInput placeholder="Price/Unit" value="150">
+                                  <mat-label>kWH</mat-label>
+                                  <input matInput placeholder="kWH" value="150">
                                   <mat-icon matSuffix>money</mat-icon>
                               </mat-form-field>
                           </mat-grid-tile>
@@ -71,7 +74,7 @@
           <div class="container">
               <mat-card class="availability-card">
                   <mat-card-header>
-                      <h4>Type 2</h4>
+                      <h4>CHAdeMO</h4>
                   </mat-card-header>
                   <mat-card-content>
                       <mat-grid-list cols="1" rowHeight="100px">
@@ -83,8 +86,8 @@
                           </mat-grid-tile>
                           <mat-grid-tile>
                               <mat-form-field appearance="outline" class="text-full-width">
-                                  <mat-label>Price/Unit</mat-label>
-                                  <input matInput placeholder="Price/Unit">
+                                  <mat-label>kWH</mat-label>
+                                  <input matInput placeholder="kWH">
                                   <mat-icon matSuffix>money</mat-icon>
                               </mat-form-field>
                           </mat-grid-tile>
@@ -96,7 +99,7 @@
           <div class="container">
               <mat-card class="availability-card">
                   <mat-card-header>
-                      <h4>Type 3</h4>
+                      <h4>Tesla Type 2</h4>
                   </mat-card-header>
                   <mat-card-content>
                       <mat-grid-list cols="1" rowHeight="100px">
@@ -109,8 +112,8 @@
                           </mat-grid-tile>
                           <mat-grid-tile>
                               <mat-form-field appearance="outline" class="text-full-width">
-                                  <mat-label>Price/Unit</mat-label>
-                                  <input matInput placeholder="Price/Unit">
+                                  <mat-label>kWH</mat-label>
+                                  <input matInput placeholder="kWH">
                                   <mat-icon matSuffix>money</mat-icon>
                               </mat-form-field>
                           </mat-grid-tile>

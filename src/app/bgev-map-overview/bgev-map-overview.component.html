@@ -3,7 +3,8 @@
     <h2>Find an EV charge point</h2>
 
         <mat-form-field class="input_form">
-          <input matInput placeholder="Location">
+          <input matInput placeholder="Location" [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
+          <mat-icon matSuffix>location_on</mat-icon>
         </mat-form-field>
         <div>
             <mat-form-field class="input_form">
@@ -34,12 +35,12 @@
         </div>  -->
       
         <div class="type-list">
-          <div>Choose Type</div>
+          <div>Choose Connector</div>
           <div id="selectType">
             <span><mat-checkbox color="primary" [(ngModel)]="isSelectedAll" (change)="makeSelectAll();" [ngModelOptions]="{standalone: true}">Any</mat-checkbox></span>
-            <span *ngFor="let type of chargerTypes">
-              <mat-checkbox color="primary" value="{{type.id}}" [(ngModel)]="type.selected" (change)="collectSelectedTypes()" [ngModelOptions]="{standalone: true}">
-                Type {{type.typeId}}
+            <span *ngFor="let charger of chargerTypes">
+              <mat-checkbox color="primary" value="{{charger.id}}" [(ngModel)]="charger.selected" (change)="collectSelectedTypes()" [ngModelOptions]="{standalone: true}">
+                {{charger.type}}
               </mat-checkbox>
             </span>
           </div>
