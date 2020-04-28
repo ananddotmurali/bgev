@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit, Renderer2 } from '@angular/core';
 // import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
 import { BgEvService } from '../shared/bgev.service';
 
@@ -27,7 +27,7 @@ export interface Content {
   templateUrl: './bgev-map.component.html',
   styleUrls: ['./bgev-map.component.scss']
 })
-export class BgEvMapComponent implements OnInit, AfterViewInit {
+export class BgEvMapComponent implements AfterViewInit {
   selectedChargerTypes: any = [];
   filteredSlideContents: any = [];
   platform: any;
@@ -49,15 +49,19 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
   elementIndices = {};
   loggedIn: string;
   isLoggedIn: string;
+  defaultLayers;
   price: string;
-  connector = ['CCA', 'CHAdeMO', 'TeslaType2', 'Untethered'];
-  CCA = [18, 22, 25];
-  CHAdeMO = [18];
-  TeslaType2 = [24];
-  Untethered = [15, 17];
+  connector = ['Type1', 'Type2', 'CCA', 'CHAdeMO', 'TeslaType2', 'Untethered'];
+  Type1 = [18, 22, 25];
+  Type2 = [18];
+  CCA = [30];
+  CHAdeMO = [32];
+  TeslaType2 = [35];
+  Untethered = [25, 35];
 
-  constructor(private bgevService: BgEvService, public dialog: MatDialog, 
-    private _bottomSheet: MatBottomSheet, private configService: BgEvConfigService,private router: Router,
+  constructor(private bgevService: BgEvService, public dialog: MatDialog,
+    private _bottomSheet: MatBottomSheet,
+    private el: ElementRef, private router: Router,
     private mapService: BgevMapService) {
     this.intersectionObserver = null;
     this.platform = new H.service.Platform({
@@ -65,64 +69,24 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    let defaultLayers = this.platform.createDefaultLayers();
-    this.map = new H.Map(
-      this.mapElement.nativeElement,
-      defaultLayers.vector.normal.map,
-      {
-        zoom: 6,
-        center: { lat: 53.6912, lng: -1.92717 },
-        pixelRatio: window.devicePixelRatio || 1
-      }
-    );
-    window.addEventListener('resize', () => this.map.getViewPort().resize());
-    this.mapGroup = new H.map.Group();
-    let ui = H.ui.UI.createDefault(this.map, defaultLayers);
-    ui.getControl('zoom').setVisibility(false);
-    ui.getControl('scalebar').setVisibility(false);
-    ui.getControl('mapsettings').setVisibility(false)
-    this.map.addObject(this.mapGroup);
-    this.mapGroup.addEventListener('tap', (evt: any) => {
-      this.map.setCenter(evt.target.getGeometry());
-      this.reverseGeocode(evt, ui);
-    }, false);
-    let mapEvents = new H.mapevents.MapEvents(this.map);
-    let behavior = new H.mapevents.Behavior(mapEvents);
-
-    this.startClustering();
-    this.addMarkers();
-    this._bottomSheet.open(BgEvMapOverviewComponent);
-
-    /////////////////////////////////////////
-    this.intersectionObserver = new IntersectionObserver((entries, observer) => {
-      console.log(entries, observer);
-      // find the entry with the largest intersection ratio
-      let activated = entries.reduce((max, entry) => {
-        return (entry.intersectionRatio > max.intersectionRatio) ? entry : max;
-      });
-      if (activated.intersectionRatio > 0) {
-        this.currentIndex = this.elementIndices[activated.target.getAttribute('id')];
-
-        // this.renderIndicator();
-      }
-      if (entries[0].isIntersecting) {
-        console.log('current index ->', this.currentIndex);
-        this.onChange(this.currentIndex);
-      }
-    }, {
-      root: this.carousel,
-      threshold: 0.5
+  async ngAfterViewInit() {
+    this.defaultLayers = this.platform.createDefaultLayers();
+     this.map = new H.Map(this.mapElement.nativeElement,
+      this.defaultLayers.vector.normal.map, {
+      center: {lat: 13, lng: 20},
+      zoom: 4,
+      pixelRatio: window.devicePixelRatio || 1
     });
 
+    window.addEventListener('resize', () => this.map.getViewPort().resize());
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+    const ui = H.ui.UI.createDefault(this.map, this.defaultLayers);
 
-    this.carousel = document.querySelector('.carousel');
-    this.elements = document.querySelectorAll('.carousel > *');
-    this.addObserver();
-    /////////////////////////////////////////////////////
+    const ref = this._bottomSheet.open(BgEvMapOverviewComponent);
+
+    await this.dismissAction(ref)
   }
 
-  /////////////////////////////////////////////
   addObserver() {
     console.log(this.elements);
     for (let i = 0; i < this.elements.length; i++) {
@@ -130,22 +94,112 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       this.intersectionObserver.observe(this.elements[i]);
     }
   }
+  getColor(obj: any) {
+    return (obj.availablity) ? 'rgba(0, 200, 0, 0.8)' : 'rgba(200, 0, 0, 0.8)';
+  }
 
-  /////////////////////////////////////////////
+  async showSearch() {
+    const ref = this._bottomSheet.open(BgEvMapOverviewComponent);
+    await this.dismissAction(ref)
+  }
+  async dismissAction(ref) {
+    await ref.afterDismissed().subscribe( async(position) => {
+      await this.getChargepoints(position[0], position[1]);
+      this.addMarkersToMap(this.map);
+      this.zoomLocation();
+   })
+  }
 
-  addMarkers() {
-    let mapCoords = this.configService.getMapCoords();
+  zoomLocation() {
+    this.intersectionObserver = new IntersectionObserver((entries, observer) => {
+      console.log(entries, observer);
+      // find the entry with the largest intersection ratio
+      const activated = entries.reduce((max, entry) => {
+        return (entry.intersectionRatio > max.intersectionRatio) ? entry : max;
+      });
+      if (activated.intersectionRatio > 0) {
+        this.currentIndex = this.elementIndices[activated.target.getAttribute('id')];
+      }
+      if (entries[0].isIntersecting) {
+        this.changeLocation(this.currentIndex);
+      }
+    }, {
+      root: this.carousel,
+      threshold: 0.5
+    });
+    this.carousel = document.querySelector('.carousel');
+    this.elements = document.querySelectorAll('.carousel > *');
+    this.addObserver();
+  }
 
-    let dataPoints = mapCoords.map((item: any) => {
-      let marker = new H.map.Marker({ lat: item.lat, lng: item.lng }, { icon: this.icon, min: 9 });
-      marker.setData(`This is infor bubble`);
-      this.mapGroup.addObject(marker);
+  addMarkersToMap(map) {
+    const marker = []
+    this.slideContents.map((content) => {
+      marker.push(new H.map.Marker({lat: content.lat, lng: content.lng},
+        {icon: this.icon}));
+    })
+    const group = new H.map.Group();
+    group.addObjects(marker);
+    map.addObject(group);
+
+    map.getViewModel().setLookAtData({
+      bounds: group.getBoundingBox()
     });
   }
 
+  openDialog(chargerType: string, index: number) {
+
+        this.isLoggedIn = localStorage.getItem('loggedIn');
+        if (this.isLoggedIn === 'no') {
+            this.router.navigate(['./login']);
+        } else {
+          this.bgevService.changeData(this.slideContents[index]);
+          localStorage.setItem('chargerType', chargerType);
+          localStorage.setItem('price', this[chargerType][0]);
+          this.router.navigate(['./request-page']);
+        }
+  }
+
+  selectType(chargerType: string) {
+    this.price = this[chargerType][0];
+  }
+
+  async getChargepoints(latitude, longitude) {
+    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar']
+    this.slideContents = [] // reset the array to flush the old data
+    for (let count = 0; count < 5; count ++) {
+      const lat = parseFloat(latitude) + (count * 0.01);
+      const long = parseFloat(longitude) + (count * count / 500);
+      const response  = await this.mapService.getAddressFromLatLng(`${lat},
+                ${long}`);
+      const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
+      (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
+      const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
+      const content = {
+        id: count,
+        availablity: 'Yes',
+        lat: lat,
+        lng: long,
+        owner: owner[count],
+        place: response[0].Location.Address.Label,
+        pricing: price[0],
+        typesAvailable: connectorType.filter(conn => conn !== undefined)
+
+      } as Content
+      this.slideContents.push(content);
+    }
+  }
+
+  changeLocation(index: number) {
+    const currCity = this.slideContents[index];
+    const { lat, lng } = currCity;
+    this.map.setCenter({ lat, lng });
+  }
+
+
   reverseGeocode(evt, ui) {
-    let { lat, lng } = evt.target.getGeometry();
-    let geocoder = this.platform.getGeocodingService(),
+    const { lat, lng } = evt.target.getGeometry();
+    const geocoder = this.platform.getGeocodingService(),
       parameters = {
         prox: `${lat}, ${lng}, 250`,
         mode: 'retrieveAddresses',
@@ -173,81 +227,4 @@ export class BgEvMapComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onChange(index: number) {
-    let currCity = this.slideContents[index];
-    let { lat, lng } = currCity;
-    this.map.setCenter({ lat, lng });
-    this.map.setZoom(12);
-  }
-  getColor(obj: any) {
-    return (obj.availablity) ? 'rgba(0, 200, 0, 0.8)' : 'rgba(200, 0, 0, 0.8)';
-  }
-
-  showSearch() {
-    this._bottomSheet.open(BgEvMapOverviewComponent);
-  }
-  openDialog(chargerType: string, index: number) {
-        this.bgevService.changeData(this.slideContents[index]);
-        localStorage.setItem('chargerType', chargerType);
-        localStorage.setItem('price', this[chargerType][0]);
-        this.router.navigate(['./request-page']);
-  }
-
-  selectType(chargerType: string) {
-    this.price = this[chargerType][0];
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = localStorage.getItem('loggedIn');
-    console.log('inside oninit');
-    const coords = new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(( position ) => {
-      resolve(position.coords)
-
-    })
-  })
-  this.getChargepoints(coords);
-
-  }
-
-  startClustering(/* data: any */) {
-    let data1 = this.configService.getMapCoords()
-    let dataPoints = data1.map(function (item: any) {
-      return new H.clustering.DataPoint(item.lat, item.lng);
-    });
-    let clusteredDataProvider = new H.clustering.Provider(dataPoints, {
-      clusteringOptions: {
-        eps: 30,
-        minWeight: 2
-      }
-    });
-    let clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider);
-    this.map.addLayer(clusteringLayer);
-  }
-
-  async getChargepoints(coords) {
-    const coordinates = await coords;
-    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar']
-
-    for (let count = 0; count < 5; count ++) {
-      const lat = coordinates.latitude + (count * 0.05);
-      const response  = await this.mapService.getAddressFromLatLng(`${lat},
-                ${coordinates.longitude}`);
-      const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
-      (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
-      const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
-      const content = {
-        id: count,
-        availablity: 'Yes',
-        lat: lat,
-        lng: coordinates.longitude,
-        owner: owner[count],
-        place: response[0].Location.Address.Label,
-        pricing: price[0],
-        typesAvailable: connectorType.filter(conn => conn !== undefined)
-
-      } as Content
-      this.slideContents.push(content);
-    }
-  }
 }

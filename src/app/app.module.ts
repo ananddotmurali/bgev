@@ -48,7 +48,7 @@ const appRoutes: Routes = [
   { path: 'request-page', component: BgEvRequestPageComponent },
   { path: 'payment-success', component: BgEvPaymentSuccessComponent },
   { path: 'charging', component: BgEvChargingPageComponent },
-  { path: '**', redirectTo: '/search', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
