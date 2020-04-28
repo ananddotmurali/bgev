@@ -4,7 +4,7 @@
 //   providedIn: 'root',
 // })
 export class BgEvConfigService {
-    currentTab: string = 'Login';
+    currentTab: string = 'Search';
     constructor() { }
 
     setCurrentTab(activeTab: string) {

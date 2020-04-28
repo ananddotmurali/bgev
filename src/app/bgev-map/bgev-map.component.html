@@ -1,8 +1,6 @@
 <div>
     <mat-card class="example-card">
         <mat-card-content>
-            <div class="map-container">
-                <!-- <a mat-raised-button color="primary" (click)="showSearch()">Refine Search</a> -->
                 <div id="mapContainer" #mapp>
                     <button mat-mini-fab color="primary" class="search-icon" (click)="showSearch()">
                         <mat-icon>youtube_searched_for
@@ -11,93 +9,43 @@
                     </button>
                 </div>
                 <div class="slider">
-                    <!--  <bgev-slider></bgev-slider> -->
-                    <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
                     <div class="carousel">
-                        <!-- <mat-card id="A{{ind}}" *ngFor="let slideContent of slideContents; let ind = index">
-                        <mat-card-header>
-                            <mat-icon style="background-size: cover;">youtube_searched_for</mat-icon>
-                            <mat-card-title>Shiba Inu</mat-card-title>
-                            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                          </mat-card-header>
-                        <mat-card-content id={{$index}}>
-                
-                            <h1>{{slideContent.text}}</h1>
-                        </mat-card-content>
-                    </mat-card> -->
-                        <mat-card class="example-card" id="A{{ind}}"
-                            *ngFor="let slideContent of slideContents; let ind = index">
-                            <mat-card-header>
-                                <div mat-card-avatar class="example-header-image"></div>
-                                <mat-card-title>{{slideContent.owner}}</mat-card-title>
-                                <mat-card-subtitle>{{price}}p/kWh</mat-card-subtitle>
-                            </mat-card-header>
 
-                            <mat-card-content id={{$index}} (scroll)="onChange($index)" style="text-align: center;">
-                                <div class="example-container">
-                                    <mat-label>{{slideContent.place}}</mat-label>
-                                    
-                                    <mat-select [(ngModel)]="charger" name="connectorType" (selectionChange) = "selectType(charger)"
-                                        placeholder="Select a Connector" >
-                                        <mat-option *ngFor="let charger of slideContent.typesAvailable"
-                                            [value]="charger">
-                                            {{charger}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <button mat-button color="primary">
-                                        <mat-icon style="vertical-align: middle;" (click) = "openDialog(charger, ind)">done</mat-icon>
-                                    </button>
-                                    
+                            <mat-card class="example-card" id="A{{ind}}" *ngFor="let content of slideContents; let ind = index">
+                                <mat-card-header>
+                                    <div mat-card-avatar class="example-header-image"></div>
+                                    <mat-card-title>{{content.owner}}</mat-card-title>
+                                    <mat-card-subtitle>{{price}}p/kWh</mat-card-subtitle>
+                                </mat-card-header>
+                                
+                                <mat-card-content id={{$index}} (scroll)="changeLocation($index)" style="text-align: center;">
+                                    <div class="example-container">
+                                        <mat-label>{{content.place}}</mat-label>
+                                        
+                                        <mat-select [(ngModel)]="charger" name="connectorType" (selectionChange) = "selectType(charger)"
+                                            placeholder="Select a Connector" >
+                                            <mat-option *ngFor="let charger of content.typesAvailable"
+                                                [value]="charger">
+                                                {{charger}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <button mat-button color="primary">
+                                            <mat-icon style="vertical-align: middle;" (click) = "openDialog(charger, ind)">done</mat-icon>
+                                        </button>
+                                        
+    
+                                    </div>
+                                </mat-card-content>
+                              </mat-card>
 
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
+                          
 
                     </div>
                     <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& (click)=""-->
                 </div>
-            </div>
 
         </mat-card-content>
-        <mat-card-actions class="login-actions">
-            <!-- <mat-carousel
-            [autoplay]="false"
-            color='primary'
-            slides="{{slideLen}}"
-            [loop]="true"
-            (change)='onChange($event)'
-            (click)='openDialog()'>
-            <mat-carousel-slide
-                #matCarouselSlide
-                overlayColor={{getColor(slide)}}
-                *ngFor="let slide of filteredSlideContents; let i = index">
-                <mat-grid-list cols="2" rowHeight="2:1" class="white-text">
-                    <mat-grid-tile>
-                        <ul class="placesul">
-                            <li>Place: {{slide.place}}</li>
-                            <li>Pricing: {{slide.pricing}}</li>
-                        </ul>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <ul class="placesul">
-                            <li>Owned By: {{slide.owner}}</li>
-                            <li>Availablity: {{slide.availablity}}</li>
-                            <li>Charge Type: {{slide.typesAvailable}}</li>
-                        </ul>                            
-                    </mat-grid-tile>
-                    
-                  </mat-grid-list>
-                  
-            </mat-carousel-slide>
-        </mat-carousel> -->
-
-
-        </mat-card-actions>
+       
     </mat-card>
 
 </div>
-<div>
-</div>
-<!-- <div class="login-actions">
-    <button mat-raised-button color="primary" class="search-buttons" (click)="showSearch()">Refine Search</button>
-</div> -->

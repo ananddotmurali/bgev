@@ -20,6 +20,7 @@ export class BgEvCpLoggedInComponent implements OnInit{
     anyOnechecked = true;
     loadcomplete: boolean;
     ownerName: string;
+    chargers = ['Type 1', 'Type 2', 'CCS', 'CHAdeMO', 'Tesla Type 2', 'Untethered']
     constructor(private router: Router, private _snackBar: MatSnackBar, public dialog: MatDialog) {
         this._snackBar.open('Logged in Successfully.', '', {
             duration: 2000

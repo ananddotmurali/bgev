@@ -18,7 +18,7 @@ export class BgEvPaymentComponent implements OnInit {
     duration = this.generateRandomNumber(1, 5);
     consumption = this.generateRandomNumber(20, 50);
     unitPrice = this.generateRandomNumber(10, 20);
-    chargingCost = (this.consumption * this.unitPrice * this.duration) / 100;
+    chargingCost = (this.consumption * this.unitPrice) / 100;
     tax = this.chargingCost * 20 / 100;
     totalAmount = this.chargingCost + this.tax;
     displayedColumns: string[] = ['item', 'value'];

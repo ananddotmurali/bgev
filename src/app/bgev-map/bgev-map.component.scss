@@ -43,7 +43,6 @@
     right: 0;
 }
 
-/* &&&&&&&&&&&&&&&&&&&&&&&&&&& */
 .carousel {
 	font-family: sans-serif;
 	scroll-snap-type: x mandatory;	
@@ -59,11 +58,10 @@
           display: none;
         }
     }
-    // margin: 1%;
 
     & mat-card {
         padding: 1rem;
-        min-width: 70vw;
+        min-width: 50vw;
         // height: 24vh;
         scroll-snap-align: center;
         // background-color: #3f51b5;

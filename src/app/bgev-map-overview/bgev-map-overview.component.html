@@ -3,7 +3,7 @@
     <h2>Find an EV charge point</h2>
 
         <mat-form-field class="input_form">
-          <input matInput placeholder="Location" [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
+          <input matInput placeholder="Location" required [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
           <mat-icon matSuffix>location_on</mat-icon>
         </mat-form-field>
         <div>
