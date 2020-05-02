@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Auth } from 'aws-amplify';
 
 @Component({
     selector: 'bgev-ev-owner',
@@ -10,7 +11,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BgEvOwnerComponent implements OnInit {
     loadComplete = false;
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
-    registeredUser() {
+    registeredUser(name, mobile, email) {
+        const user = {
+            username: email,
+            password: 'temp',
+            attributes: {
+                 email,
+                 phone_number: mobile,
+                 user: name
+               }
+         }
+        Auth.signUp(user)
+        .then(data => {
+        alert(data);
+      })
+      .catch(err => console.log(err));
+
         this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
             duration: 3000
         });
