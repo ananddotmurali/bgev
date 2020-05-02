@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
+import { Auth } from 'aws-amplify';
 
 
 @Component({
@@ -14,16 +15,26 @@ export class BgEvLoginComponent {
     hide = true;
     constructor(private router: Router) {}
 
-    login(login_id: string) {
-        let owner = login_id.substring(0, 7);
-        if(owner == 'gomathi'){
-            this.router.navigate([`./cploggedin`]);
-        } else if(owner == 'swaroop'){
-            console.log(owner);
-            this.router.navigate([`./evloggedin`]);
-        } else {
-            return false;
+    login(email: string, password: string) {
+
+        const user = {
+            username: email,
+            password: password
         }
+        Auth.signIn(user).then( ( res ) => {
+            console.log(res);
+            this.router.navigate([`./evloggedin`]);
+          })
+            .catch(err => console.log(err));
+        // let owner = login_id.substring(0, 7);
+        // if(owner == 'gomathi'){
+        //     this.router.navigate([`./cploggedin`]);
+        // } else if(owner == 'swaroop'){
+        //     console.log(owner);
+        //     this.router.navigate([`./evloggedin`]);
+        // } else {
+        //     return false;
+        // }
     }
 
     getErrorMessage() {
