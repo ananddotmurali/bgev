@@ -9,19 +9,19 @@
         <div class="example-container">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" #name>
+                <input matInput placeholder="Name" [(ngModel)] = "name">
                 <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No" #mobile>
+                <input matInput placeholder="Mobile No" [(ngModel)]="mobile">
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" #email>
+                <input matInput placeholder="Email" [(ngModel)]="email">
                 <mat-icon matSuffix>contact_mail</mat-icon>
             </mat-form-field>
         </div>

@@ -30,10 +30,20 @@ import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
-    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, MatOptionModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatSlideToggleModule, MatMenuModule, MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule, MatSidenavModule, MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule, MatTabsModule,MatListModule, MatBottomSheetModule, MatDatepickerModule, MatFormFieldModule, MatBadgeModule, ScrollingModule, MatTableModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, MatOptionModule,
+    MatGridListModule, MatProgressBarModule, MatSliderModule, MatSlideToggleModule,
+    MatMenuModule, MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule, MatSidenavModule, MatCardModule, 
+    MatIconModule, MatRadioModule, MatProgressSpinnerModule,
+    MatTabsModule, MatListModule, MatBottomSheetModule, MatDatepickerModule, MatFormFieldModule,
+    MatBadgeModule, ScrollingModule, MatTableModule
   ],
   exports: [
-    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, MatOptionModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatSlideToggleModule, MatMenuModule, MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule, MatSidenavModule, MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule, MatTabsModule, MatListModule, MatBottomSheetModule, MatDatepickerModule, MatFormFieldModule, MatBadgeModule, ScrollingModule, MatTableModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule,
+    MatOptionModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatSlideToggleModule,
+     MatMenuModule, MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule,
+     MatSidenavModule, MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule,
+     MatTabsModule, MatListModule, MatBottomSheetModule, MatDatepickerModule, MatFormFieldModule,
+     MatBadgeModule, ScrollingModule, MatTableModule
   ],
 })
 export class AppMaterialModule { }

@@ -11,26 +11,27 @@ import { Auth } from 'aws-amplify';
 export class BgEvOwnerComponent implements OnInit {
     loadComplete = false;
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
-    registeredUser(name, mobile, email) {
+    async registeredUser(name: string, mobile: string, email: string) {
         const user = {
             username: email,
-            password: 'temp',
+            password: 'test@123',
             attributes: {
+                nickname: name,
+                name: name,
+                profile: 'ev',
                  email,
+                 gender: 'Male',
                  phone_number: mobile,
-                 user: name
+                 birthdate: '2000-01-01'
                }
          }
-        Auth.signUp(user)
-        .then(data => {
-        alert(data);
-      })
-      .catch(err => console.log(err));
+        const data = await Auth.signUp(user);
+
+        console.log('userConfirmation::', data.userConfirmed);
 
         this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-            duration: 3000
         });
-        this.router.navigate(['Login']);
+        this.router.navigate(['login']);
     }
 
     ngOnInit() {

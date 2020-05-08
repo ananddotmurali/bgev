@@ -15,7 +15,7 @@ import { BgEvLoginComponent } from './bgev-login/bgev-login.component';
 import { BgEvMapOverviewComponent } from './bgev-map-overview/bgev-map-overview.component';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-datetime-picker';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BgEvIntroPageComponent } from './bgev-intro-page/bgev-intro-page-component';
 import { BgCpOwnerComponent } from './bgev-cp-owner/bgev-cp-owner-component';
