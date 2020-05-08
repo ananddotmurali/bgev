@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Auth } from 'aws-amplify';
 
 @Component({
     selector: 'bgev-cp-owner',
@@ -27,11 +28,33 @@ export class BgCpOwnerComponent implements OnInit {
       }) viewContainerRef: ViewContainerRef
 
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
-    registeredUser() {
-        this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-            duration: 3000
-        });
-        this.router.navigate(['home']);
+    async registerUser(name: string, mobile: string, email: string) {
+        const user = {
+            username: email,
+            password: 'test@123',
+            attributes: {
+                nickname: name,
+                name: name,
+                profile: 'cp',
+                 email,
+                 gender: 'Male',
+                 phone_number: mobile,
+                 birthdate: '2000-01-01'
+               }
+         }
+         try {
+             const data = await Auth.signUp(user);
+             console.log('userConfirmation::', data.userConfirmed);
+
+         } catch (error) {
+            if (JSON.stringify(error).includes('UsernameExistsException')) {
+                alert('Name already exists!')
+            }
+         }
+        // this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
+        //     duration: 3000
+        // });
+        this.router.navigate(['login']);
     }
 
     ngOnInit() {

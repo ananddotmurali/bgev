@@ -9,19 +9,19 @@
         <div class="example-container">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name">
+                <input matInput placeholder="Name" [(ngModel)]= "name">
                 <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No">
+                <input matInput placeholder="Mobile No" [(ngModel)] = "mobile">
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email">
+                <input matInput placeholder="Email" [(ngModel)] = "email">
                 <mat-icon matSuffix>contact_mail</mat-icon>
             </mat-form-field>
         </div>
@@ -81,7 +81,7 @@
                 </mat-grid-tile>
             </mat-grid-list>
             <div class="login-actions">
-                <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
+                <button mat-raised-button color="primary" (click)="registerUser(name, mobile, email)">Submit</button>
                 <a mat-raised-button color="primary" routerLink="/home">Back</a>
             </div>
         </div>

@@ -15,20 +15,26 @@ export class BgEvLoginComponent {
     hide = true;
     constructor(private router: Router) {}
 
-    login(email: string, password: string) {
+    async login() {
 
         const user = {
-            username: email,
-            password: password
+            username: this.email.value,
+            password: this.password.value
         }
-        Auth.signIn(user).then( ( res ) => {
-            console.log(res);
-            this.router.navigate([`./evloggedin`]);
-          })
-            .catch(err => console.log(err));
+        try {
+            const response = await Auth.signIn(user);
+            console.log(response.attributes.profile);
+            if (response.attributes.profile === 'ev') {
+                this.router.navigate([`./evloggedin`]);
+            } else {
+                this.router.navigate([`./cploggedin`]);
+            }
+
+        } catch (error) {
+            alert('Invalid Credentials!!')
+        }
         // let owner = login_id.substring(0, 7);
         // if(owner == 'gomathi'){
-        //     this.router.navigate([`./cploggedin`]);
         // } else if(owner == 'swaroop'){
         //     console.log(owner);
         //     this.router.navigate([`./evloggedin`]);
