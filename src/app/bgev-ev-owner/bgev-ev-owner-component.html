@@ -9,20 +9,35 @@
         <div class="example-container">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" [(ngModel)] = "name">
+                <input matInput placeholder="Name"  [formControl]="user_name">
+                <mat-error *ngIf="user_name.invalid">{{getNameErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No" [(ngModel)]="mobile">
+                <input matInput placeholder="Mobile No"  [formControl]="mobile_no">
+                <mat-error *ngIf="mobile_no.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" [(ngModel)]="email">
+                <input matInput placeholder="Email"  [formControl]="mail">
+                <mat-error *ngIf="user_name.invalid">{{getMailErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>contact_mail</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>New Password</mat-label>
+                <input matInput placeholder="New Password" type="password" [formControl]="new_password">
+                <mat-error *ngIf="new_password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>vpn_key</mat-icon> 
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput placeholder="Confirm Password" type="password" [formControl]="confirm_password">
+                <mat-error *ngIf="new_password.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>vpn_key</mat-icon> 
             </mat-form-field>
         </div>
         <div class="example-container">
@@ -45,7 +60,7 @@
 
         </div>
         <div class="login-actions">
-            <button mat-raised-button color="primary" (click)="registeredUser(name,mobile, email)">Submit</button>
+            <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
             <a mat-raised-button color="primary" routerLink="/home">Back</a>
         </div>
     </div>

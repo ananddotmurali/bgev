@@ -9,20 +9,37 @@
         <div class="example-container">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]= "name">
+                <input matInput placeholder="Name" [formControl]="username">
+                <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No" [(ngModel)] = "mobile">
+                <input matInput placeholder="Mobile No" [formControl]="mobile">
+                <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" [(ngModel)] = "email">
+                <input matInput placeholder="Email" [formControl]="mail">
+                <mat-error *ngIf="mail.invalid">{{getMailErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>contact_mail</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>New Password</mat-label>
+                <input matInput placeholder="New Password" [formControl]="new_password">
+                <mat-error *ngIf="new_password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>vpn_key</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput placeholder="Confirm Password" [formControl]="confirm_password">
+                <mat-error *ngIf="confirm_password.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>vpn_key</mat-icon>
             </mat-form-field>
         </div>
         <div class="example-container" *ngFor = "let container of containers" >
@@ -56,7 +73,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Price</mat-label>
-                <input matInput placeholder="Price">
+                <input matInput placeholder="Price" [formControl]="price">
+                <mat-error *ngIf="price.invalid">{{getPriceErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>euro</mat-icon>
             </mat-form-field>
 
@@ -81,7 +99,7 @@
                 </mat-grid-tile>
             </mat-grid-list>
             <div class="login-actions">
-                <button mat-raised-button color="primary" (click)="registerUser(name, mobile, email)">Submit</button>
+                <button mat-raised-button color="primary" (click)="registerUser()">Submit</button>
                 <a mat-raised-button color="primary" routerLink="/home">Back</a>
             </div>
         </div>

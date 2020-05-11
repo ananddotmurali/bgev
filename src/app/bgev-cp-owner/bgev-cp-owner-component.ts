@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Auth } from 'aws-amplify';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'bgev-cp-owner',
@@ -9,6 +10,12 @@ import { Auth } from 'aws-amplify';
     styleUrls: ['./bgev-cp-owner-component.scss']
 })
 export class BgCpOwnerComponent implements OnInit {
+    username = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    mobile = new FormControl('',[Validators.required]);
+    mail = new FormControl('', [Validators.required, Validators.email]);
+    new_password = new FormControl('',[Validators.required, Validators.minLength(8)]);
+    confirm_password = new FormControl('',[Validators.required, Validators.minLength(8)]);
+    price = new FormControl('', [Validators.required])
     loadComplete = false;
     amenities = [{'icon_name': 'Store', 'icon': 'shopping_cart'},
     {'icon_name': 'Cafe', 'icon': 'local_cafe'},
@@ -28,17 +35,48 @@ export class BgCpOwnerComponent implements OnInit {
       }) viewContainerRef: ViewContainerRef
 
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
-    async registerUser(name: string, mobile: string, email: string) {
+
+    getUsernameErrorMessage() {
+        return this.username.hasError('required') ? 'You must enter a value' :
+            this.username.hasError('minlength') ? 'Should be atleast 4 characters long' :
+                '';
+    }
+
+    getMobileErrorMessage() {
+        return this.mobile.hasError('required') ? 'You must enter a value' : '';
+    }
+
+    getMailErrorMessage() {
+        return this.mail.hasError('required') ? 'You must enter a value' :
+        this.mail.hasError('email') ? 'Not a valid email' :
+            '';
+    }
+
+    getPasswordErrorMessage() {
+        return this.new_password.hasError('required') ? 'You must enter a value' :
+            this.new_password.hasError('minlength') ? 'Should be atleast 8 characters long' : '';
+    }
+
+    getConfirmPasswordErrorMessage(){
+        return this.confirm_password.hasError('required') ? 'You must enter a value' :
+            this.confirm_password.hasError('minlength') ? 'Should be atleast 8 characters long' : '';
+    }
+
+    getPriceErrorMessage() {
+        return this.price.hasError('required') ? 'You must enter a value' : '';
+    }
+
+    async registerUser() {
         const user = {
-            username: email,
-            password: 'test@123',
+            username: this.mail.value,
+            password: this.new_password.value,
             attributes: {
                 nickname: name,
                 name: name,
                 profile: 'cp',
-                 email,
+                 email: this.mail.value,
                  gender: 'Male',
-                 phone_number: mobile,
+                 phone_number: this.mobile.value,
                  birthdate: '2000-01-01'
                }
          }
@@ -51,9 +89,9 @@ export class BgCpOwnerComponent implements OnInit {
                 alert('Name already exists!')
             }
          }
-        // this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-        //     duration: 3000
-        // });
+        this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
+            duration: 3000
+        });
         this.router.navigate(['login']);
     }
 
