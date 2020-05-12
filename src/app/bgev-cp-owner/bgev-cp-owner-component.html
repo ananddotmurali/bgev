@@ -16,7 +16,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No" [formControl]="mobile">
+                <span matPrefix class="mobile-pin">+91 &nbsp;</span>
+                <input matInput placeholder="Mobile No" type="tel"  [formControl]="mobile">
                 <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
@@ -29,15 +30,21 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Location" required [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
+                <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
                 <mat-label>New Password</mat-label>
-                <input matInput placeholder="New Password" [formControl]="new_password">
+                <input matInput placeholder="New Password" type="password" [formControl]="new_password">
                 <mat-error *ngIf="new_password.invalid">{{getPasswordErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>vpn_key</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Confirm Password</mat-label>
-                <input matInput placeholder="Confirm Password" [formControl]="confirm_password">
+                <input matInput placeholder="Confirm Password" type="password" [formControl]="confirm_password">
                 <mat-error *ngIf="confirm_password.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>vpn_key</mat-icon>
             </mat-form-field>
@@ -81,12 +88,10 @@
             <mat-form-field appearance="outline">
                 <mat-label>Rated Power</mat-label>
                 <input matInput placeholder="kW">
+                <mat-icon matSuffix>battery_charging_full</mat-icon>
             </mat-form-field>
             
-            <mat-form-field appearance="outline">
-                <mat-label>Location</mat-label>
-                <input matInput placeholder="Location" required [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
-            </mat-form-field>
+            
             
         </div>
         <div>

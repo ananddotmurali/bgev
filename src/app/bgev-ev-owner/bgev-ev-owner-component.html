@@ -16,7 +16,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <input matInput placeholder="Mobile No"  [formControl]="mobile_no">
+                <span matPrefix class="mobile-pin">+91 &nbsp;</span>
+                <input matInput placeholder="Mobile No" type="tel"  [formControl]="mobile_no">
                 <mat-error *ngIf="mobile_no.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
@@ -44,18 +45,21 @@
             <h4>Payment Method</h4>
             <mat-divider></mat-divider>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Name on Card</mat-label>
-                <input matInput>
+                <input matInput placeholder="Name on Card" type="text">
+                <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Credit/Debit Card Number</mat-label>
                 <input matInput type="number" maxlength="16">
+                <mat-icon matSuffix>credit_card</mat-icon>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Expiry Date</mat-label>
                 <input matInput type="string" placeholder="MM/YY" maxlength="5">
+                <mat-icon matSuffix>calendar_today</mat-icon>
             </mat-form-field>
 
         </div>

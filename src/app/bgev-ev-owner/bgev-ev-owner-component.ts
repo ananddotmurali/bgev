@@ -78,8 +78,8 @@ export class BgEvOwnerComponent implements OnInit {
     }
 
     ngOnInit() {
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.loadComplete = true;
-        }, 2500);
+        }, 2500); */
     }
 }

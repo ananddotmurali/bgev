@@ -8,15 +8,15 @@
         </mat-form-field>
         <div>
           <mat-grid-list cols="2" rowHeight="2:1">
-            <mat-grid-tile class="date_input_form">
-              <mat-form-field>
+            <mat-grid-tile>
+              <mat-form-field class="date_input_form">
                   <input matInput [matDatepicker]="pickerFrom" placeholder="Start date">
                   <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
                   <mat-datepicker #pickerFrom></mat-datepicker>
               </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile class="date_input_form">
-            <mat-form-field>
+          <mat-grid-tile>
+            <mat-form-field class="date_input_form">
               <input matInput [matDatepicker]="pickerTo" placeholder="End date">
               <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
               <mat-datepicker #pickerTo></mat-datepicker>

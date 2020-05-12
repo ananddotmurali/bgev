@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
 import { Auth } from 'aws-amplify';
@@ -9,10 +9,11 @@ import { Auth } from 'aws-amplify';
     templateUrl: './bgev-login.component.html',
     styleUrls: ['./bgev-login.component.css']
 })
-export class BgEvLoginComponent {
+export class BgEvLoginComponent implements OnInit{
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
     hide = true;
+    loadComplete = false;
     constructor(private router: Router) {}
 
     async login() {
@@ -52,5 +53,9 @@ export class BgEvLoginComponent {
     getPasswordErrorMsg() {
         return this.password.hasError('required') ? 'Please enter your password' : '';
     }
-    
+    ngOnInit() {
+        setTimeout(() => {
+            this.loadComplete = true;
+        }, 1500);
+    }
 }
