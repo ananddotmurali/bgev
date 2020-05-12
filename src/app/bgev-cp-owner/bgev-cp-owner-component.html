@@ -83,6 +83,11 @@
                 <input matInput placeholder="kW">
             </mat-form-field>
             
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Location" required [(ngModel)] = "location" (ngModelChange)="getAddress(location)">
+            </mat-form-field>
+            
         </div>
         <div>
             <mat-label><strong>Would you like to add another connector?</strong></mat-label>

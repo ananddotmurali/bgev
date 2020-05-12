@@ -7,11 +7,22 @@
           <mat-icon matSuffix>location_on</mat-icon>
         </mat-form-field>
         <div>
-            <mat-form-field class="input_form">
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+          <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile class="date_input_form">
+              <mat-form-field>
+                  <input matInput [matDatepicker]="pickerFrom" placeholder="Start date">
+                  <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+              </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile class="date_input_form">
+            <mat-form-field>
+              <input matInput [matDatepicker]="pickerTo" placeholder="End date">
+              <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+              <mat-datepicker #pickerTo></mat-datepicker>
+          </mat-form-field>
+          </mat-grid-tile>
+          </mat-grid-list>  
         </div>
 
         <mat-grid-list cols="2" rowHeight="2:1" class="ngx-timepicker-field-example">

@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Auth } from 'aws-amplify';
 import { FormControl, Validators } from '@angular/forms';
+import { BgevMapService } from '../shared/bgev-map-service'
+
 
 @Component({
     selector: 'bgev-cp-owner',
@@ -33,8 +35,11 @@ export class BgCpOwnerComponent implements OnInit {
     @ViewChild('dynamic', {
         read: ViewContainerRef
       }) viewContainerRef: ViewContainerRef
+    location: any;
+    latitude: any;
+    longitude: any;
 
-    constructor(private router: Router, private _snackBar: MatSnackBar) {}
+    constructor(private router: Router, private _snackBar: MatSnackBar, private mapService: BgevMapService) {}
 
     getUsernameErrorMessage() {
         return this.username.hasError('required') ? 'You must enter a value' :
@@ -90,17 +95,40 @@ export class BgCpOwnerComponent implements OnInit {
             }
          }
         this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-            duration: 3000
+            duration: 1500
         });
         this.router.navigate(['login']);
     }
+
+   /*  ngAfterViewInit() {
+        
+    } */
 
     ngOnInit() {
         setTimeout(() => {
             this.loadComplete = true;
         }, 2500)
+        const coords = new Promise((resolve) => {
+            navigator.geolocation.getCurrentPosition(( position ) => {
+            resolve(position.coords)
+    
+        })
+        })
+        this.getlocation(coords);
     }
     addConnector() {
         this.containers.push(this.containers.length + 1)
+    }
+
+    async getlocation(coords) {
+        const coordinates = await coords;
+        const response  = await this.mapService.getAddressFromLatLng(`${coordinates.latitude}, ${coordinates.longitude}`);
+        this.location = response[0].Location.Address.Label;
+        this.setLatLongitude(response[0].Location.DisplayPosition)
+    }
+
+    setLatLongitude(position) {
+        this.latitude = position.Latitude;
+        this.longitude = position.Longitude;
     }
 }

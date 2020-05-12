@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './bgev-ev-logged-in-component.html',
     styleUrls: ['./bgev-ev-logged-in-component.scss']
 })
+
 export class BgEvEvLoggedInComponent implements OnInit {
     user = {
         name: 'Anderson'
