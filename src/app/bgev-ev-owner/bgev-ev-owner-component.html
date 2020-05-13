@@ -64,7 +64,7 @@
 
         </div>
         <div class="login-actions">
-            <button mat-raised-button color="primary" (click)="registeredUser()">Submit</button>
+            <button mat-raised-button color="primary" (click)="registeredUser()" [disabled]="isDisabled">Submit</button>
             <a mat-raised-button color="primary" routerLink="/home">Back</a>
         </div>
     </div>

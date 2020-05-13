@@ -11,15 +11,16 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class BgEvOwnerComponent implements OnInit {
     user_name = new FormControl('', [Validators.required, Validators.minLength(4)]);
-    mobile_no = new FormControl('',[Validators.required]);
-    mail = new FormControl('',[Validators.required, Validators.email]);
-    new_password = new FormControl('',[Validators.required, Validators.minLength(8)]);
-    confirm_password = new FormControl('',[Validators.required, Validators.minLength(8)]);
+    mobile_no = new FormControl('', [Validators.required]);
+    mail = new FormControl('', [Validators.required, Validators.email]);
+    new_password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+    confirm_password = new FormControl('', [Validators.required, Validators.minLength(8)]);
     hide = true;
     loadComplete = false;
+    isDisabled = false;
     constructor(private router: Router, private _snackBar: MatSnackBar) {}
 
-    getNameErrorMessage(){
+    getNameErrorMessage() {
         return this.user_name.hasError('required') ? 'You must enter a value' :
             this.user_name.hasError('minlength') ? 'Should be atleast 4 characters long' :
                 '';
@@ -46,10 +47,9 @@ export class BgEvOwnerComponent implements OnInit {
     }
 
     passwordMismatch() {
-        if(this.new_password != this.confirm_password) {
+        if (this.new_password !== this.confirm_password) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -59,27 +59,34 @@ export class BgEvOwnerComponent implements OnInit {
             username: this.mail.value,
             password: this.new_password.value,
             attributes: {
-                nickname: name,
-                name: name,
+                nickname: this.user_name.value,
+                name: this.user_name.value,
                 profile: 'ev',
                  email: this.mail.value,
                  gender: 'Male',
-                 phone_number: this.mobile_no,
+                 phone_number: this.mobile_no.value,
                  birthdate: '2000-01-01'
                }
          }
-        const data = await Auth.signUp(user);
+         try {
+            this.isDisabled = true;
+             const data = await Auth.signUp(user);
 
-        console.log('userConfirmation::', data.userConfirmed);
+             console.log('userConfirmation::', data.userConfirmed);
 
-        this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-        });
-        this.router.navigate(['login']);
+             this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
+                duration: 500
+             });
+             this.router.navigate(['login']);
+
+         } catch (error) {
+            alert('Invalid Data!')
+         }
     }
 
     ngOnInit() {
         setTimeout(() => {
             this.loadComplete = true;
-        }, 2500);
+        }, 500);
     }
 }

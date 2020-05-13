@@ -87,18 +87,17 @@ export class BgCpOwnerComponent implements OnInit {
          }
          try {
              const data = await Auth.signUp(user);
-             alert(data); 
              console.log('userConfirmation::', data.userConfirmed);
+             this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
+                 duration: 1500
+             });
+             this.router.navigate(['login']);
 
          } catch (error) {
             if (JSON.stringify(error).includes('UsernameExistsException')) {
                 alert('Name already exists!')
             }
          }
-        this._snackBar.open('Registered Successfully. Please Login to Continue', '', {
-            duration: 1500
-        });
-        this.router.navigate(['login']);
     }
 
    /*  ngAfterViewInit() {
