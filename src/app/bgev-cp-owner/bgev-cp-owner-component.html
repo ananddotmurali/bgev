@@ -16,8 +16,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <span matPrefix class="mobile-pin">+91 &nbsp;</span>
-                <input matInput placeholder="Mobile No" type="tel"  [formControl]="mobile">
+                <!-- <span matPrefix class="mobile-pin">+91 &nbsp;</span> -->
+                <input matInput placeholder="+91-Mobile No" type="tel"  [formControl]="mobile">
                 <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
@@ -51,14 +51,16 @@
         </div>
         <div class="example-container" *ngFor = "let container of containers" >
             <mat-label><strong>Connector Type</strong></mat-label>
-            <section class="example-section">
-                <mat-radio-button class="example-margin" color="primary">Type 1</mat-radio-button>
-                <mat-radio-button class="example-margin" color="primary">Type 2</mat-radio-button>
-                <mat-radio-button class="example-margin" color="primary">CHAdeMo</mat-radio-button>
-                <mat-radio-button class="example-margin" color="primary">CCS</mat-radio-button>
-                <mat-radio-button class="example-margin" color="primary">Tesla Type 2</mat-radio-button>
-                <mat-radio-button class="example-margin" color="primary">Untethered</mat-radio-button>
-            </section>
+            <!-- <section class="example-section"> -->
+                <mat-grid-list cols="3" rowHeight="2:1" class="example-section">
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">Type 1</mat-radio-button></mat-grid-tile>
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">Type 2</mat-radio-button></mat-grid-tile>
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">CHAdeMo</mat-radio-button></mat-grid-tile>
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">CCS</mat-radio-button></mat-grid-tile>
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">Tesla Type 2</mat-radio-button></mat-grid-tile>
+                    <mat-grid-tile><mat-radio-button class="example-margin" color="primary">Untethered</mat-radio-button></mat-grid-tile>
+                </mat-grid-list>    
+            <!-- </section> -->
 
             <mat-label><strong>Current type</strong></mat-label>
             <section class="example-section">

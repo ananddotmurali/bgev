@@ -87,6 +87,7 @@ export class BgCpOwnerComponent implements OnInit {
          }
          try {
              const data = await Auth.signUp(user);
+             alert(data); 
              console.log('userConfirmation::', data.userConfirmed);
 
          } catch (error) {

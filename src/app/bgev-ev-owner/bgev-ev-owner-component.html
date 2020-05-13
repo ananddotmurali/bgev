@@ -16,8 +16,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Mobile No</mat-label>
-                <span matPrefix class="mobile-pin">+91 &nbsp;</span>
-                <input matInput placeholder="Mobile No" type="tel"  [formControl]="mobile_no">
+                <!-- <span matPrefix class="mobile-pin">+91 &nbsp;</span> -->
+                <input matInput placeholder="+91-Mobile No" type="tel"  [formControl]="mobile_no">
                 <mat-error *ngIf="mobile_no.invalid">{{getMobileErrorMessage()}}</mat-error>
                 <mat-icon matSuffix>smartphone</mat-icon>
             </mat-form-field>
