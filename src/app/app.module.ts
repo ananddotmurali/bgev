@@ -33,6 +33,7 @@ import { RequestDialogBoxComponent } from './bgev-request-page/request-dialog-bo
 import { AcceptDialogBoxComponent } from './bgev-cp-logged-in/accept-dialog-box.component';
 import { BgEvRequestPageComponent } from './bgev-request-page/bgev-request-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BgEvBookingConfirmationComponent } from './bgev-booking-confirmation/bgev-booking-confirmation.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: BgEvIntroPageComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
   { path: 'request-page', component: BgEvRequestPageComponent },
   { path: 'payment-success', component: BgEvPaymentSuccessComponent },
   { path: 'charging', component: BgEvChargingPageComponent },
+  { path: 'booking-confirmation', component: BgEvBookingConfirmationComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
@@ -87,7 +89,8 @@ const appRoutes: Routes = [
     BgEvRequestPageComponent,
     BgEvPaymentSuccessComponent,
     RequestDialogBoxComponent,
-    AcceptDialogBoxComponent
+    AcceptDialogBoxComponent,
+    BgEvBookingConfirmationComponent
   ],
   entryComponents: [DialogContentComponent, RequestDialogBoxComponent, AcceptDialogBoxComponent],
   bootstrap: [AppComponent],

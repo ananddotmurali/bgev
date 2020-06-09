@@ -25,7 +25,7 @@ export class RequestDialogBoxComponent implements OnInit {
         this.router.navigate([`./home`]);
     }, 2000); */
       setTimeout(() => {
-        this.router.navigate(['./payment']);
+        this.router.navigate(['./booking-confirmation']);
         this._snackBar.open('Request Accepted', '', {
           duration: 1500
         });

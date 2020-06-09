@@ -1,0 +1,20 @@
+mat-card {
+    &-header {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+    &-actions {
+        & div {
+            padding-top: 10px;
+            font-size: smaller;
+        }
+    }
+}
+
+table {
+    width: 100%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
