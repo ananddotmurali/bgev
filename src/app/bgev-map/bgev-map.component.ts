@@ -116,7 +116,9 @@ export class BgEvMapComponent implements AfterViewInit {
   async dismissAction(ref) {
     await ref.afterDismissed().subscribe( async(position) => {
       if(position) {
-        await this.getChargepoints(position[0], position[1]);        
+        await this.getChargepoints(position[0], position[1]);
+        // this.addMarkersToMap(this.map);
+        // this.zoomLocation();
       }
    })
   }
@@ -140,6 +142,11 @@ export class BgEvMapComponent implements AfterViewInit {
     });
     this.carousel = document.querySelector('.carousel');
     this.elements = document.querySelectorAll('.carousel > *');
+    if(this.elements.length === 0) {
+      setTimeout(() => {
+        this.zoomLocation();
+      }, 2000);
+    }
     this.addObserver();
   }
 
@@ -147,7 +154,6 @@ export class BgEvMapComponent implements AfterViewInit {
     const marker = []
     this.slideContents.map((content) => {
       console.log(content);
-      debugger;
       marker.push(new H.map.Marker({lat: content.lat, lng: content.lng},
         {icon: this.icon}));
     })
@@ -181,15 +187,12 @@ export class BgEvMapComponent implements AfterViewInit {
     const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar'];
     this.slideContents = []; // reset the array to flush the old data
     this.searchService.geocode({
-      q: 'fuel stations',
+      q: 'fuel station',
       at: `${latitude},${longitude}`
     }, (result) => {
       // Add a marker for each location found
       result.items.map(async (item, count) => {
-        console.log(item, count);
         const { lat, lng } = item.position;
-        // const response  = await this.mapService.getAddressFromLatLng(`${lat},${lng}`);
-        // console.log(response);
         const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
         (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
         const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
@@ -205,7 +208,6 @@ export class BgEvMapComponent implements AfterViewInit {
 
         };
         this.slideContents.push(content);
-        // this.map.addObject(new H.map.Marker(item.position));
       });
       this.addMarkersToMap(this.map);
       this.zoomLocation();
@@ -237,6 +239,7 @@ export class BgEvMapComponent implements AfterViewInit {
     const currCity = this.slideContents[index];
     const { lat, lng } = currCity;
     this.map.setCenter({ lat, lng });
+    // this.map.setZoom(14);
   }
 
 
