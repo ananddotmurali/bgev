@@ -58,6 +58,7 @@ export class BgEvMapComponent implements AfterViewInit {
   CHAdeMO = [32];
   TeslaType2 = [35];
   Untethered = [25, 35];
+  searchService: any;
 
   constructor(private bgevService: BgEvService, public dialog: MatDialog,
     private _bottomSheet: MatBottomSheet,
@@ -67,15 +68,20 @@ export class BgEvMapComponent implements AfterViewInit {
     this.platform = new H.service.Platform({
       apikey: 'Y_bhbqaJHZK-B-xpbBxIA1CavyvZ-sheohUgOqphVu8'
     });
+    this.searchService = this.platform.getSearchService();
   }
 
   async ngAfterViewInit() {
     this.defaultLayers = this.platform.createDefaultLayers();
      this.map = new H.Map(this.mapElement.nativeElement,
       this.defaultLayers.vector.normal.map, {
-      center: {lat: 13, lng: 20},
+      center: {lat: 20.59, lng: 78.96},
       zoom: 4,
       pixelRatio: window.devicePixelRatio || 1
+    });
+    navigator.geolocation.getCurrentPosition(( position ) => {
+      const { latitude, longitude } = position.coords;
+      this.changeCenter(latitude, longitude);
     });
 
     window.addEventListener('resize', () => this.map.getViewPort().resize());
@@ -85,6 +91,11 @@ export class BgEvMapComponent implements AfterViewInit {
     const ref = this._bottomSheet.open(BgEvMapOverviewComponent);
 
     await this.dismissAction(ref)
+  }
+
+  changeCenter(lat, lng) {
+    this.map.setCenter({ lat, lng });
+    this.map.setZoom(14);
   }
 
   addObserver() {
@@ -100,13 +111,13 @@ export class BgEvMapComponent implements AfterViewInit {
 
   async showSearch() {
     const ref = this._bottomSheet.open(BgEvMapOverviewComponent);
-    await this.dismissAction(ref)
+    await this.dismissAction(ref);
   }
   async dismissAction(ref) {
     await ref.afterDismissed().subscribe( async(position) => {
-      await this.getChargepoints(position[0], position[1]);
-      this.addMarkersToMap(this.map);
-      this.zoomLocation();
+      if(position) {
+        await this.getChargepoints(position[0], position[1]);        
+      }
    })
   }
 
@@ -135,6 +146,8 @@ export class BgEvMapComponent implements AfterViewInit {
   addMarkersToMap(map) {
     const marker = []
     this.slideContents.map((content) => {
+      console.log(content);
+      debugger;
       marker.push(new H.map.Marker({lat: content.lat, lng: content.lng},
         {icon: this.icon}));
     })
@@ -142,9 +155,9 @@ export class BgEvMapComponent implements AfterViewInit {
     group.addObjects(marker);
     map.addObject(group);
 
-    map.getViewModel().setLookAtData({
-      bounds: group.getBoundingBox()
-    });
+    // map.getViewModel().setLookAtData({
+    //   bounds: group.getBoundingBox()
+    // });
   }
 
   openDialog(chargerType: string, index: number) {
@@ -165,9 +178,39 @@ export class BgEvMapComponent implements AfterViewInit {
   }
 
   async getChargepoints(latitude, longitude) {
-    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar']
-    this.slideContents = [] // reset the array to flush the old data
-    for (let count = 0; count < 5; count ++) {
+    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar'];
+    this.slideContents = []; // reset the array to flush the old data
+    this.searchService.geocode({
+      q: 'fuel stations',
+      at: `${latitude},${longitude}`
+    }, (result) => {
+      // Add a marker for each location found
+      result.items.map(async (item, count) => {
+        console.log(item, count);
+        const { lat, lng } = item.position;
+        // const response  = await this.mapService.getAddressFromLatLng(`${lat},${lng}`);
+        // console.log(response);
+        const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
+        (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
+        const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
+        const content = {
+          id: count,
+          availablity: 'Yes',
+          lat,
+          lng,
+          owner: owner[Math.floor(Math.random() * owner.length)],
+          place: item.address.label,
+          pricing: price[0],
+          typesAvailable: connectorType.filter(conn => conn !== undefined)
+
+        };
+        this.slideContents.push(content);
+        // this.map.addObject(new H.map.Marker(item.position));
+      });
+      this.addMarkersToMap(this.map);
+      this.zoomLocation();
+    }, alert);
+    /*for (let count = 0; count < 5; count ++) {
       const lat = parseFloat(latitude) + (count * 0.01);
       const long = parseFloat(longitude) + (count * count / 500);
       const response  = await this.mapService.getAddressFromLatLng(`${lat},
@@ -187,7 +230,7 @@ export class BgEvMapComponent implements AfterViewInit {
 
       } as Content
       this.slideContents.push(content);
-    }
+    }*/
   }
 
   changeLocation(index: number) {
