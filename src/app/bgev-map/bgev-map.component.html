@@ -15,7 +15,7 @@
                                 <mat-card-header>
                                     <div mat-card-avatar class="example-header-image"></div>
                                     <mat-card-title>{{content.owner}}</mat-card-title>
-                                    <mat-card-subtitle>{{price}}p/kWh</mat-card-subtitle>
+                                    <mat-card-subtitle>{{content.pricing}}p/kWh</mat-card-subtitle>
                                 </mat-card-header>
                                 
                                 <mat-card-content id={{$index}} (scroll)="changeLocation($index)" style="text-align: center;">
