@@ -5,12 +5,12 @@
 <div>    
     <mat-card class="login-card">
         <mat-card-header>
-            <h4>Please Enter your Credentials</h4>
+            <h4 class="headingcenter">Already a British Gas customer?</h4>
         </mat-card-header>
         <mat-card-content>
             <form>
                 <mat-form-field appearance="outline">
-                    <mat-label>UserID</mat-label>
+                    <mat-label>Email/Mobile No</mat-label>
                     <!-- <input #login_id name="login_id" matInput type="text" placeholder="Email/Mobile" required> -->
                     <input matInput placeholder="pat@pat.com" [formControl]="email" required>
                     <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
@@ -22,11 +22,12 @@
                     <input matInput placeholder="Password" type="password" [formControl]="password" required>
                     <mat-error *ngIf="password.invalid">{{getPasswordErrorMsg()}}</mat-error>
                     <mat-icon matSuffix>vpn_key</mat-icon>
-                </mat-form-field>                
+                </mat-form-field>
             </form>
         </mat-card-content>
         <mat-card-actions class="login-actions">
-            <a mat-raised-button color="primary" (click)="login()">Login</a>
+            <a mat-raised-button color="primary" (click)="login()">Sign In</a>
+            <a mat-raised-button color="primary" (click)="redirectToRegister()">Sign Up</a>
         </mat-card-actions>
     </mat-card>
 </div>

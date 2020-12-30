@@ -13,4 +13,15 @@ export class BgEvPaymentSuccessComponent {
     goHome() {
         this.router.navigate([`./evloggedin`]);
     }
+
+    showColor(starId) {
+        for(let i=1;i<=5;i++) {
+            let star = document.getElementById(`star_${i}`);
+            if(i <= starId) {
+                star.classList.add('mat-accent');
+            } else {
+                star.classList.remove('mat-accent');
+            }
+        }
+    }
 }

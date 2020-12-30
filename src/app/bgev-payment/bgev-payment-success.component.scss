@@ -10,13 +10,13 @@
 }
 
 .done-message {
-  margin-top: 5%;
+  margin-top: 10%;
   font-size: 20px;
   text-align: center;
 }
 
 .payment-success {
-  margin-top: 50%;
+  margin-top: 25%;
   margin-bottom: 50%;
   
 }
@@ -24,4 +24,12 @@
 .action-button{
   padding-top: 18px;
   text-align: center;
+}
+
+.rating-container{
+  padding: 5% 0;
+  & mat-icon {
+    font-size: 35px;
+    padding: 12px;
+  }
 }
