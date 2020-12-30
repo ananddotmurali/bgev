@@ -15,18 +15,17 @@
                                 <mat-card-header>
                                     <div mat-card-avatar class="example-header-image"></div>
                                     <mat-card-title>{{content.owner}}</mat-card-title>
-                                    <mat-card-subtitle>{{content.pricing}}p/kWh</mat-card-subtitle>
+                                    <mat-card-subtitle>{{content.distance}} KM</mat-card-subtitle>
                                 </mat-card-header>
                                 
                                 <mat-card-content id={{$index}} (scroll)="changeLocation($index)" style="text-align: center;">
                                     <div class="example-container">
                                         <mat-label>{{content.place}}</mat-label>
-                                        
                                         <mat-select [(ngModel)]="charger" name="connectorType" (selectionChange) = "selectType(charger)"
                                             placeholder="Select a Connector" >
                                             <mat-option *ngFor="let charger of content.typesAvailable"
                                                 [value]="charger">
-                                                {{charger}}
+                                                {{charger}} {{content.pricing}}p/kWh
                                             </mat-option>
                                         </mat-select>
                                         <button mat-button color="primary">

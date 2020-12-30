@@ -3,7 +3,16 @@
         <mat-icon color="primary">check_circle_outline</mat-icon>
       </div>
       <div class="done-message">
-        Payment Successful...
+        <h3>Thank you. We've received your payment.</h3>
+        
+        <p>We're happy to hear from you, please rate us</p>
+        <div class="rating-container">
+          <mat-icon id="star_1" (click)="showColor(1)" color="">star</mat-icon>
+          <mat-icon id="star_2" (click)="showColor(2)" color="">star</mat-icon>
+          <mat-icon id="star_3" (click)="showColor(3)" color="">star</mat-icon>
+          <mat-icon id="star_4" (click)="showColor(4)" color="">star</mat-icon>
+          <mat-icon id="star_5" (click)="showColor(5)" color="">star</mat-icon>
+        </div>
       </div>
       <div class="action-button">
         <button mat-raised-button color="primary" (click)="goHome()">Home</button>

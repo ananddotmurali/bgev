@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
 import { Auth } from 'aws-amplify';
-
+import { BgEvConfigService } from '../bgev-config-service/bgev-config-service';
 
 @Component({
     selector: 'bgev-login',
@@ -14,7 +14,7 @@ export class BgEvLoginComponent implements OnInit{
     password = new FormControl('', [Validators.required]);
     hide = true;
     loadComplete = false;
-    constructor(private router: Router) {}
+    constructor(private router: Router, private configService: BgEvConfigService) {}
 
     async login() {
 
@@ -57,5 +57,9 @@ export class BgEvLoginComponent implements OnInit{
         setTimeout(() => {
             this.loadComplete = true;
         }, 1500);
+    }
+    redirectToRegister() {
+        this.configService.setCurrentTab('Register');
+        this.router.navigate(['./payment']);
     }
 }

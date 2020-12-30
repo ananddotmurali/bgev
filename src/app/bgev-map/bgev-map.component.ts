@@ -99,7 +99,6 @@ export class BgEvMapComponent implements AfterViewInit {
   }
 
   addObserver() {
-    console.log(this.elements);
     for (let i = 0; i < this.elements.length; i++) {
       this.elementIndices[this.elements[i].getAttribute('id')] = i;
       this.intersectionObserver.observe(this.elements[i]);
@@ -125,7 +124,7 @@ export class BgEvMapComponent implements AfterViewInit {
 
   zoomLocation() {
     this.intersectionObserver = new IntersectionObserver((entries, observer) => {
-      console.log(entries, observer);
+      // console.log(entries, observer);
       // find the entry with the largest intersection ratio
       const activated = entries.reduce((max, entry) => {
         return (entry.intersectionRatio > max.intersectionRatio) ? entry : max;
@@ -184,18 +183,24 @@ export class BgEvMapComponent implements AfterViewInit {
   }
 
   async getChargepoints(latitude, longitude) {
-    const owner = ['John', 'Ram', 'Raj', 'Deepak', 'Kumar'];
+    const owner = ['Anand', 'Bala', 'Gomathi', 'Srikanth'];
     this.slideContents = []; // reset the array to flush the old data
     this.searchService.geocode({
-      q: 'fuel station',
+      q: 'petrol bunks',
       at: `${latitude},${longitude}`
     }, (result) => {
-      // Add a marker for each location found
-      result.items.map(async (item, count) => {
+      result.items.filter((item) => {
+        return item.distance < 13000;
+      }).sort((x, y) => {
+        if (x.distance < y.distance) {return -1;}
+        if (x.distance > y.distance) {return 1;}
+        return 0;
+      }).map((item, count) => {
         const { lat, lng } = item.position;
         const connectorType = [(this.connector[count]) ? this.connector[count] : this.connector[0],
         (this.connector[count + 2]) ? this.connector[count + 2] : undefined]
         const price = this[this.connector[count]] ? this[this.connector[count]] : this[this.connector[0]];
+        const distance = (item.distance/1000).toFixed(2);
         const content = {
           id: count,
           availablity: 'Yes',
@@ -204,11 +209,12 @@ export class BgEvMapComponent implements AfterViewInit {
           owner: owner[Math.floor(Math.random() * owner.length)],
           place: item.address.label,
           pricing: price[0],
-          typesAvailable: connectorType.filter(conn => conn !== undefined)
-
+          typesAvailable: connectorType.filter(conn => conn !== undefined),
+          distance
         };
         this.slideContents.push(content);
       });
+      
       this.addMarkersToMap(this.map);
       this.zoomLocation();
     }, alert);
@@ -239,7 +245,7 @@ export class BgEvMapComponent implements AfterViewInit {
     const currCity = this.slideContents[index];
     const { lat, lng } = currCity;
     this.map.setCenter({ lat, lng });
-    // this.map.setZoom(14);
+    this.map.setZoom(14);
   }
 
 
