@@ -45,9 +45,12 @@ export class BgEvBookingConfirmationComponent implements OnInit {
         return date.toTimeString().substring(0,5);
       }
 
+      redirectToPayment() {
+        this.router.navigate(['./payment']);
+      }
+
     ngOnInit() {
         setTimeout(() => {
-            this.router.navigate(['./payment']);
             this._snackBar.open('Request Accepted', '', {
               duration: 1500
             });

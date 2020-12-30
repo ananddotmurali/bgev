@@ -41,9 +41,6 @@ export class BgEvPaymentComponent implements OnInit {
         if(this.isLoggedIn == 'no') {
             this.router.navigate(['./home']);
         }
-        setTimeout(() => {
-            this.loadComplete = true;
-        }, 10000)
     }
 
     generateRandomNumber(Hl: number, Ll: number) {
@@ -52,6 +49,10 @@ export class BgEvPaymentComponent implements OnInit {
 
     paymentSuccess() {
         this.router.navigate([`./payment-success`]);
+    }
+
+    redirectToPayment() {
+        this.loadComplete = true;
     }
 
 }
