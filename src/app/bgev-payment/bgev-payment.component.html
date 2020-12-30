@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="!loadComplete && loginType != 'cp'" class="spinnerContainer">
-        <h2 class="charging">Charging...</h2>
+        <h2 (click)="redirectToPayment()" class="charging">Charging...</h2>
         <img src="assets/imgs/charge2.gif" alt="">
         <!-- <mat-spinner></mat-spinner> -->
     </div>

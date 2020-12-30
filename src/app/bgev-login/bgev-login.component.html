@@ -5,7 +5,7 @@
 <div>    
     <mat-card class="login-card">
         <mat-card-header>
-            <h4 class="headingcenter">Already a British Gas customer?</h4>
+            <h4 class="headingcenter">Have an account with us?</h4>
         </mat-card-header>
         <mat-card-content>
             <form>
@@ -27,7 +27,12 @@
         </mat-card-content>
         <mat-card-actions class="login-actions">
             <a mat-raised-button color="primary" (click)="login()">Sign In</a>
-            <a mat-raised-button color="primary" (click)="redirectToRegister()">Sign Up</a>
+            <div>
+                <a mat-button color="primary" href="https://www.britishgas.co.uk/" target="_blank">Already a British Gas customer?</a>
+            </div>
+            <div>                
+                <a mat-button color="primary" (click)="redirectToRegister()">New User? Sign Up</a>
+            </div>
         </mat-card-actions>
     </mat-card>
 </div>
